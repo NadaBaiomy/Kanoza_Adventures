@@ -29,6 +29,18 @@ button{font-family:inherit;color:inherit;border:none;background:none;cursor:poin
 .screen.on{display:flex;animation:scrIn .3s ease}
 @keyframes scrIn{from{opacity:0;transform:scale(1.02)}to{opacity:1;transform:none}}
 svg{display:block}
+/* كاشف المشاكل — لو الكود مش شغال تظهر الرسالة دي بدل شاشة فاضية */
+#jsWarn{position:absolute;top:0;left:0;right:0;bottom:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;background:#FFF7F9}
+#jsWarn .t1{font-size:28px;font-weight:800;color:#E04E86}
+#jsWarn .t2{font-size:18px;font-weight:700;margin-top:12px;max-width:430px;line-height:1.9;color:#4A3428}
+/* مقاسات الرسومات — عشان كل صورة تظهر كاملة */
+.logo-box svg{width:100%;height:100%}
+.world .disc .art svg{width:100%;height:100%}
+.big-animal svg,.feed-an svg,.letter-card .mini svg{width:100%;height:auto}
+.lolo svg{width:100%;height:auto}
+.g-item svg{width:100%;height:auto}
+.sess-count svg{width:100%;height:100%}
+.level-card .st svg{width:100%;height:100%}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font-weight:800;color:#fff;padding:16px 34px;font-size:22px;box-shadow:0 6px 0 rgba(0,0,0,.16);transition:transform .08s}
 .btn:active{transform:translateY(5px);box-shadow:0 1px 0 rgba(0,0,0,.16)}
 .btn-pink{background:var(--pink)} .btn-lilac{background:var(--lilac)}
@@ -182,6 +194,7 @@ svg{display:block}
 #gToast span{background:#fff;border:3px solid var(--line);border-radius:999px;padding:4px 20px;font-weight:800;font-size:19px;box-shadow:0 4px 0 rgba(74,52,40,.12);opacity:0;transition:opacity .3s}
 #gToast span.show{opacity:1}
 .rw-stats{display:flex;gap:10px;justify-content:center;padding:10px 0 6px}
+.rw-stats svg{width:24px;height:24px}
 .album{padding:4px 20px 16px;background:var(--paper);border-radius:26px 26px 0 0;margin-top:-14px;position:relative;z-index:3}
 .album h3{font-size:22px;font-weight:800;text-align:center;padding:6px}
 .album-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding-bottom:8px}
@@ -201,11 +214,12 @@ svg{display:block}
 .sum-row .chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
 .sum-row .chip{background:#FFEFEE;border:2px solid var(--line);border-radius:12px;padding:2px 12px;font-size:22px;font-weight:800}
 .sum-row .chip svg{width:44px;height:44px}
+.sum-row .star-ic{display:inline-block;width:30px;height:30px}
 .bye-msg{font-size:26px;font-weight:800}
 #praise{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;z-index:70;pointer-events:none}
 #praise span{font-size:min(11vw,58px);font-weight:800;color:#fff;opacity:0;text-shadow:0 4px 0 var(--pink), -2px 0 0 var(--pink), 2px 0 0 var(--pink), 0 -2px 0 var(--pink), 0 8px 14px rgba(0,0,0,.18);-webkit-text-stroke:2px var(--pink)}
-#praise span.show{animation:praiseIn 1.5s cubic-bezier(.34,1.56,.64,1)}
-@keyframes praiseIn{0%{opacity:0;transform:scale(.3) rotate(-6deg)}15%{opacity:1;transform:scale(1.15) rotate(2deg)}30%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(1.05)}}
+#praise span.show{animation:praiseIn 2s cubic-bezier(.34,1.56,.64,1)}
+@keyframes praiseIn{0%{opacity:0;transform:scale(.3) rotate(-6deg)}15%{opacity:1;transform:scale(1.15) rotate(2deg)}30%{transform:scale(1)}85%{opacity:1}100%{opacity:0;transform:scale(1.05)}}
 #fx{position:fixed;top:0;left:0;right:0;bottom:0;z-index:80;pointer-events:none}
 .fly-star{position:fixed;z-index:85;width:46px;height:46px;pointer-events:none;transition:all .75s cubic-bezier(.5,-.2,.6,1)}
 .modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(74,52,40,.45);padding:18px}
@@ -241,7 +255,17 @@ svg{display:block}
 </head>
 <body>
 <div id="app">
-  <section class="screen" id="sc-splash">
+
+  <!-- كاشف المشاكل: لو الكود مش شغال الرسالة دي تظهر بدل الشاشة الفاضية -->
+  <div id="jsWarn">
+    <div class="t1">اللعبة مش شغالة على الجهاز ده</div>
+    <div class="t2">ده معناه إن الملف اتحفظ ناقص أو بيتفتح ببرنامج مش متصفح.<br>
+    اعملي كده: انسخي الكود <b>من أول سطر لآخر سطر</b>، افتحي «المفكرة» (Notepad)، الصقيه فيه،<br>
+    واحفظيه باسم <b>kenoza7.html</b> مع «Encoding: UTF-8»،<br>
+    وبعدين افتحي الملف بـ <b>Google Chrome</b>.</div>
+  </div>
+
+  <section class="screen on" id="sc-splash">
     <div class="splash-inner">
       <div class="logo-box" id="logoBox"></div>
       <h1 class="app-title">مغامرات كنوزة</h1>
@@ -256,9 +280,10 @@ svg{display:block}
       </div>
       <button class="btn btn-pink btn-xl" id="btnStart">يلا نلعب!</button>
       <p class="tiny-note">للوالدين: اكتبوا اسم طفلكم — والتطبيق سيناديه به طوال الرحلة</p>
-      <p class="ver-badge">الإصدار ٥</p>
+      <p class="ver-badge">الإصدار ٧</p>
     </div>
   </section>
+
   <section class="screen" id="sc-home">
     <div class="home-bg" id="homeBg"></div>
     <header class="topbar">
@@ -274,6 +299,7 @@ svg{display:block}
       <div class="lolo idle" id="loloHome"></div>
     </div>
   </section>
+
   <section class="screen" id="sc-choose">
     <header class="simple-head">
       <button class="icon-btn" id="chBack"></button>
@@ -282,6 +308,7 @@ svg{display:block}
     <div class="ch-msg" id="chMsg"></div>
     <div class="level-list" id="levelList"></div>
   </section>
+
   <section class="screen" id="sc-play">
     <header class="play-head">
       <button class="icon-btn" id="btnBack"></button>
@@ -296,6 +323,7 @@ svg{display:block}
       <div class="lolo idle" id="loloPlay"></div>
     </div>
   </section>
+
   <section class="screen" id="sc-rewards">
     <header class="simple-head">
       <button class="icon-btn" id="rwBack"></button>
@@ -311,6 +339,7 @@ svg{display:block}
       <div class="album-grid" id="albumGrid"></div>
     </div>
   </section>
+
   <section class="screen" id="sc-end">
     <div class="lolo idle" id="loloEnd" style="width:140px"></div>
     <h2 id="endTitle"></h2>
@@ -319,8 +348,10 @@ svg{display:block}
     <button class="btn btn-lilac btn-xl" id="btnEndHome">نرجع للبيت</button>
   </section>
 </div>
+
 <canvas id="fx"></canvas>
 <div id="praise"><span id="praiseTxt"></span></div>
+
 <div class="modal" id="mLevel">
   <div class="box">
     <div class="m-lolo"><div class="lolo dance happy" id="loloModal"></div></div>
@@ -334,6 +365,7 @@ svg{display:block}
     </div>
   </div>
 </div>
+
 <div class="modal" id="mParent">
   <div class="box">
     <h2 style="margin-bottom:8px">منطقة الوالدين</h2>
@@ -370,8 +402,11 @@ svg{display:block}
     <div class="row"><button class="btn btn-line" id="pClose">اقفل</button></div>
   </div>
 </div>
+
 <script>
-/* ====== شريط الأخطاء ====== */
+/* أول حاجة: نخفي رسالة التحذير — لو الكود شغال */
+var jw=document.getElementById('jsWarn');if(jw){jw.style.display='none'}
+
 function showErrorBar(msg){
   try{
     var old=document.getElementById('errBar');if(old){old.remove()}
@@ -384,24 +419,12 @@ function showErrorBar(msg){
 }
 window.addEventListener('error',function(e){
   showErrorBar(e&&e.message?e.message:'مش معروفة');
-  try{$('playArea').classList.remove('locked')}catch(err){}
+  try{document.getElementById('playArea').classList.remove('locked')}catch(err){}
 });
 const $=id=>document.getElementById(id);
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 const toAr=n=>String(n).replace(/\d/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.charAt(+d)});
-const fillName=s=>s.split('{n}').join(S.name);
-function starPts(cx,cy,R,r){var p=[];for(var i=0;i<10;i++){var a=-Math.PI/2+i*Math.PI/5,rad=(i%2)?r:R;p.push((cx+rad*Math.cos(a)).toFixed(1)+','+(cy+rad*Math.sin(a)).toFixed(1))}return p.join(' ')}
-const STAR=(col,stroke)=>'<svg viewBox="0 0 100 100"><polygon points="'+starPts(50,50,46,19)+'" fill="'+(col||'#FFC531')+'" stroke="'+(stroke||'#E8A61E')+'" stroke-width="5" stroke-linejoin="round"/></svg>';
-const GIFT='<svg viewBox="0 0 24 24" fill="#FF6FA5"><rect x="4" y="9" width="16" height="11" rx="2"/><rect x="3" y="6" width="18" height="4" rx="1.5" fill="#E04E86"/><rect x="10.6" y="6" width="2.8" height="14" fill="#FFF3DA"/><path d="M12 6 C8 6 6 3 8.5 2.4 C10.5 2 12 4.5 12 6 Z M12 6 C16 6 18 3 15.5 2.4 C13.5 2 12 4.5 12 6 Z" fill="#FFC531"/></svg>';
-const I_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="#4A3428" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 L17 12 L6 20"/></svg>';
-const I_SND='<svg viewBox="0 0 24 24" fill="#4A3428"><path d="M4 9 h4 l5 -5 v16 l-5 -5 h-4 z"/><path d="M16.5 8.5 a5 5 0 0 1 0 7 M18.8 6 a8.5 8.5 0 0 1 0 12" stroke="#4A3428" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>';
-const I_MUTE='<svg viewBox="0 0 24 24" fill="#B08968"><path d="M4 9 h4 l5 -5 v16 l-5 -5 h-4 z"/><path d="M16 9 L21 15 M21 9 L16 15" stroke="#E05A3C" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>';
-const I_PAR='<svg viewBox="0 0 24 24" fill="#4A3428"><circle cx="9" cy="8" r="3.4"/><circle cx="16.5" cy="9" r="2.7"/><path d="M3.5 19 a5.5 5.5 0 0 1 11 0 z"/><path d="M15.5 19 a4.5 4.5 0 0 1 6 -4.2 a5 5 0 0 0 -4.5 4.2 z"/></svg>';
-const I_LOCK='<svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="#C9A9BD"/><path d="M8 10.5 V8 a4 4 0 0 1 8 0 v2.5" stroke="#C9A9BD" stroke-width="2.6" fill="none"/></svg>';
-const I_REPLAY='<svg viewBox="0 0 24 24" fill="none" stroke="#4A3428" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12 a8 8 0 1 1 -3 -6.2"/><path d="M17.5 2.5 L17.5 6.5 L13.5 6" stroke-width="2.6"/></svg>';
-const I_NOTE='<svg viewBox="0 0 24 24" fill="#A78BDB"><path d="M9 18 V5 l10 -2 v12" stroke="#A78BDB" stroke-width="2.4" fill="none" stroke-linejoin="round"/><circle cx="6.8" cy="18" r="3"/><circle cx="16.8" cy="15" r="3"/></svg>';
-const I_ERASE='<svg viewBox="0 0 24 24" fill="#E8A61E" stroke="#C98A34" stroke-width="1.6" stroke-linejoin="round"><path d="M8 20 L3.5 15.5 a2 2 0 0 1 0 -2.8 L12 4.2 a2 2 0 0 1 2.8 0 L20 9.4 a2 2 0 0 1 0 2.8 L12 20 Z"/><path d="M8.5 10.5 L14 16" stroke="#fff" stroke-width="2"/></svg>';
 
 /* ====== رسومات SVG ====== */
 const ART={
@@ -447,7 +470,18 @@ bread:'<g><path d="M20 80 q0 -42 40 -42 q40 0 40 42 z" fill="#E8A94F"/><path d="
 grass:'<g><path d="M38 98 q-4 -30 6 -46 M54 98 q0 -36 8 -52 M70 98 q4 -28 14 -40" stroke="#5FAE4B" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="34" y="90" width="46" height="10" rx="5" fill="#C9A26B"/></g>',
 honey:'<g><path d="M38 52 h44 q6 0 6 8 v32 q0 12 -12 12 h-32 q-12 0 -12 -12 v-32 q0 -8 6 -8 z" fill="#F5A623"/><rect x="34" y="42" width="52" height="12" rx="6" fill="#C98A34"/><ellipse cx="60" cy="80" rx="16" ry="10" fill="#FFD894"/><path d="M78 54 q0 10 -4 16" stroke="#E8930F" stroke-width="5" fill="none" stroke-linecap="round"/></g>'
 };
-const foodSVG=id=>'<svg viewBox="0 0 120 120">'+FOODS[id]+'</svg>';
+function starPts(cx,cy,R,r){var p=[];for(var i=0;i<10;i++){var a=-Math.PI/2+i*Math.PI/5,rad=(i%2)?r:R;p.push((cx+rad*Math.cos(a)).toFixed(1)+','+(cy+rad*Math.sin(a)).toFixed(1))}return p.join(' ')}
+const STAR=(col,stroke)=>'<svg viewBox="0 0 100 100" width="100%" height="100%"><polygon points="'+starPts(50,50,46,19)+'" fill="'+(col||'#FFC531')+'" stroke="'+(stroke||'#E8A61E')+'" stroke-width="5" stroke-linejoin="round"/></svg>';
+const GIFT='<svg viewBox="0 0 24 24" width="24" height="24" fill="#FF6FA5"><rect x="4" y="9" width="16" height="11" rx="2"/><rect x="3" y="6" width="18" height="4" rx="1.5" fill="#E04E86"/><rect x="10.6" y="6" width="2.8" height="14" fill="#FFF3DA"/><path d="M12 6 C8 6 6 3 8.5 2.4 C10.5 2 12 4.5 12 6 Z M12 6 C16 6 18 3 15.5 2.4 C13.5 2 12 4.5 12 6 Z" fill="#FFC531"/></svg>';
+const I_BACK='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A3428" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 L17 12 L6 20"/></svg>';
+const I_SND='<svg viewBox="0 0 24 24" width="24" height="24" fill="#4A3428"><path d="M4 9 h4 l5 -5 v16 l-5 -5 h-4 z"/><path d="M16.5 8.5 a5 5 0 0 1 0 7 M18.8 6 a8.5 8.5 0 0 1 0 12" stroke="#4A3428" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>';
+const I_MUTE='<svg viewBox="0 0 24 24" width="24" height="24" fill="#B08968"><path d="M4 9 h4 l5 -5 v16 l-5 -5 h-4 z"/><path d="M16 9 L21 15 M21 9 L16 15" stroke="#E05A3C" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>';
+const I_PAR='<svg viewBox="0 0 24 24" width="24" height="24" fill="#4A3428"><circle cx="9" cy="8" r="3.4"/><circle cx="16.5" cy="9" r="2.7"/><path d="M3.5 19 a5.5 5.5 0 0 1 11 0 z"/><path d="M15.5 19 a4.5 4.5 0 0 1 6 -4.2 a5 5 0 0 0 -4.5 4.2 z"/></svg>';
+const I_LOCK='<svg viewBox="0 0 24 24" width="24" height="24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="#C9A9BD"/><path d="M8 10.5 V8 a4 4 0 0 1 8 0 v2.5" stroke="#C9A9BD" stroke-width="2.6" fill="none"/></svg>';
+const I_REPLAY='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#4A3428" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12 a8 8 0 1 1 -3 -6.2"/><path d="M17.5 2.5 L17.5 6.5 L13.5 6" stroke-width="2.6"/></svg>';
+const I_NOTE='<svg viewBox="0 0 24 24" width="24" height="24" fill="#A78BDB"><path d="M9 18 V5 l10 -2 v12" stroke="#A78BDB" stroke-width="2.4" fill="none" stroke-linejoin="round"/><circle cx="6.8" cy="18" r="3"/><circle cx="16.8" cy="15" r="3"/></svg>';
+const I_ERASE='<svg viewBox="0 0 24 24" width="24" height="24" fill="#E8A61E" stroke="#C98A34" stroke-width="1.6" stroke-linejoin="round"><path d="M8 20 L3.5 15.5 a2 2 0 0 1 0 -2.8 L12 4.2 a2 2 0 0 1 2.8 0 L20 9.4 a2 2 0 0 1 0 2.8 L12 20 Z"/><path d="M8.5 10.5 L14 16" stroke="#fff" stroke-width="2"/></svg>';
+const foodSVG=id=>'<svg viewBox="0 0 120 120" width="100%">'+FOODS[id]+'</svg>';
 const artSVG=(id,cls)=>'<svg viewBox="0 0 200 200" class="'+(cls||'')+'">'+ART[id]+'</svg>';
 const BFLY=(c)=>'<svg width="52" height="42" viewBox="0 0 60 48"><ellipse cx="30" cy="30" rx="5" ry="13" fill="#4A3428"/><circle cx="18" cy="16" r="11" fill="'+(c||'#FF8FB8')+'"/><circle cx="42" cy="16" r="11" fill="'+(c||'#FF8FB8')+'"/><circle cx="20" cy="31" r="8" fill="'+(c||'#FF8FB8')+'" opacity=".85"/><circle cx="40" cy="31" r="8" fill="'+(c||'#FF8FB8')+'" opacity=".85"/><circle cx="17" cy="15" r="4" fill="#fff" opacity=".6"/><circle cx="43" cy="15" r="4" fill="#fff" opacity=".6"/><path d="M30 18 v-8 M27 10 q3 -6 6 0" stroke="#4A3428" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
 function loloSVG(){return '<svg viewBox="0 0 220 250"><g class="inner"><ellipse cx="85" cy="234" rx="21" ry="13" fill="#F2C285"/><ellipse cx="135" cy="234" rx="21" ry="13" fill="#F2C285"/><ellipse cx="52" cy="172" rx="14" ry="30" fill="#F2C285" transform="rotate(32 52 172)"/><ellipse cx="168" cy="172" rx="14" ry="30" fill="#F2C285" transform="rotate(-32 168 172)"/><ellipse cx="110" cy="188" rx="57" ry="47" fill="#FFDFAD"/><ellipse cx="110" cy="199" rx="30" ry="26" fill="#FFF1D6"/><circle cx="62" cy="38" r="23" fill="#F2C285"/><circle cx="62" cy="38" r="11" fill="#FFF1D6"/><circle cx="158" cy="38" r="23" fill="#F2C285"/><g transform="translate(160,26)"><circle cx="0" cy="-9" r="7" fill="#FF9BBE"/><circle cx="8.5" cy="-3" r="7" fill="#FF9BBE"/><circle cx="5" cy="7" r="7" fill="#FF9BBE"/><circle cx="-5" cy="7" r="7" fill="#FF9BBE"/><circle cx="-8.5" cy="-3" r="7" fill="#FF9BBE"/><circle r="5.5" fill="#FFC531"/></g><circle cx="110" cy="86" r="61" fill="#FFDFAD"/><circle cx="66" cy="104" r="10" fill="#FFB49B" opacity=".65"/><circle cx="154" cy="104" r="10" fill="#FFB49B" opacity=".65"/><g class="eye-n"><circle cx="88" cy="80" r="6.5" fill="#4A3428"/><circle cx="132" cy="80" r="6.5" fill="#4A3428"/><circle cx="90" cy="78" r="2.2" fill="#fff"/><circle cx="134" cy="78" r="2.2" fill="#fff"/><path d="M80 68 l-6 -4 M84 66 l-3 -6 M138 68 l6 -4 M134 66 l3 -6" stroke="#4A3428" stroke-width="2.6" stroke-linecap="round"/></g><g class="eye-h"><path d="M79 83 q9 -11 18 0 M123 83 q9 -11 18 0" stroke="#4A3428" stroke-width="5" fill="none" stroke-linecap="round"/></g><ellipse cx="110" cy="104" rx="27" ry="18" fill="#FFF1D6"/><ellipse cx="110" cy="96" rx="7.5" ry="5.5" fill="#8C5A3C"/><g class="mouth-s"><path d="M110 103 q0 9 -9 9 M110 103 q0 9 9 9" stroke="#8C5A3C" stroke-width="4" fill="none" stroke-linecap="round"/></g><g class="mouth-o"><ellipse cx="110" cy="112" rx="13" ry="10" fill="#7A4A34"/><ellipse cx="110" cy="117" rx="7" ry="4.5" fill="#F98B7E"/></g><path d="M74 140 q36 20 72 0 l5 17 q-41 22 -82 0 z" fill="#FF6FA5"/></g></svg>'}
@@ -523,25 +557,22 @@ try{
   if(raw){S=Object.assign(DEF(),JSON.parse(raw))}
   else{const o=localStorage.getItem('knoza_v1');if(o){S.name=JSON.parse(o).name||''}}
 }catch(e){}
+if(!S.name){S.name='كنوزة'}
 while(S.letters.length<28){S.letters.push(0)}
 const save=function(){try{localStorage.setItem('knoza_v2',JSON.stringify(S))}catch(e){}};
+const fillName=s=>s.split('{n}').join(S.name||'كنوزة');
 let sessionActive=false,sessionStart=0,sessStars=0,todayLetters=[],todayAnimals=[],lastSay='';
 let flow=[],fi=0,chKind='animals',curLevel={kind:'',idx:0},homeWelcomed=false,muted=false;
 
-/* ============================================================
-   محرك الصوت الجديد:
-   1) صوت جوجل أونلاين (جودة عالية، طبيعي) — لو النت شغال
-   2) لو فشل → صوت الجهاز بأفضل صوت عربي متاح، بنبرة طبيعية
-   + تقسيم الكلام لجمل قصيرة مع وقفات = نطق أوضح
-   ============================================================ */
+/* ====== محرك الصوت ====== */
 let voices=[];
 function loadVoices(){try{voices=speechSynthesis.getVoices()||[]}catch(e){voices=[]}}
 function bestVoice(){
   const ar=voices.filter(function(v){return /^ar/i.test(v.lang)});
   if(!ar.length)return null;
   var g=null,fe=null,any=null;
-  const feRe=/hoda|salma|amina|zeina|zariyah|zariya|fatim|sana|laila|layla|noura|nour|mariam|maryam|hala|rana|dalia|zira|female|انثى/i;
-  const meRe=/naayf|maged|majed|shakir|hamdan|tarik|tariq|omar|fahd|hamed|bashir|male|ذكر/i;
+  const feRe=/hoda|salma|amina|zeina|zariyah|zariya|fatim|sana|laila|layla|noura|nour|mariam|maryam|hala|rana|dalia|zira|female/i;
+  const meRe=/naayf|maged|majed|shakir|hamdan|tarik|tariq|omar|fahd|hamed|bashir|male/i;
   for(var i=0;i<ar.length;i++){
     var v=ar[i];
     if(/google|natural|neural|wavenet/i.test(v.name)&&!g){g=v}
@@ -552,10 +583,8 @@ function bestVoice(){
   return g||fe||any||ar[0];
 }
 if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
-
-/* إدارة الإيقاف والتبديل بين الأصوات */
-let googleOK=null;             /* null=لسه مجربناش، true=شغال، false=مش متاح */
-const audioCache={};           /* تخزين أصوات جوجل المسموعة عشان التكرار يبقى فوري */
+let googleOK=null;
+const audioCache={};
 let SP={seq:0,audio:null,timers:[]};
 function stopSpeak(){
   SP.seq++;
@@ -596,7 +625,6 @@ function speakGoogle(text,cb){
   var t=setTimeout(fin,Math.min(15000,3000+text.length*220));
   SP.timers.push(t);
 }
-/* تقسيم النص عند علامات الوقف — جمل قصيرة بنبرة أنضف */
 function splitText(t){
   var out=[],cur='';
   for(var i=0;i<t.length;i++){
@@ -624,9 +652,7 @@ function speakDevice(text,cb){
     var v=bestVoice();
     if(v){u.voice=v}
     u.lang=(v&&v.lang)||'ar-EG';
-    u.rate=.85;   /* أهدى = أوضح للطفل */
-    u.pitch=1.0;  /* طبيعي من غير تشويه */
-    u.volume=1;
+    u.rate=.85;u.pitch=1.0;u.volume=1;
     var done=false;
     function step(){if(done||my!==SP.seq)return;done=true;setTimeout(next,150)}
     u.onend=step;u.onerror=step;
@@ -636,7 +662,6 @@ function speakDevice(text,cb){
   }
   next();
 }
-/* نقطة الدخول الموحدة */
 function speak(t,cb){
   stopSpeak();
   if(muted){if(cb)cb();return}
@@ -798,7 +823,6 @@ document.querySelectorAll('.g-pill').forEach(function(b){
   S.gender=on?on.getAttribute('data-g'):'g';
   save();
   go('sc-home');
-  /* أول جملة بتشتغل جوه الضغطة = بتفتح الصوت وبتجرب صوت جوجل في نفس الوقت */
   speak('أهلاً يا '+S.name+'! يلا نلعب!');
   enterHome();
 });
@@ -906,13 +930,14 @@ function checkGold(){
   }
 }
 function celebrate(cb,txt){
-  setTimeout(function(){area.classList.remove('locked');if(cb)cb()},1800);
+  setTimeout(function(){area.classList.remove('locked');if(cb)cb()},2300);
   area.classList.add('locked');
   txt=txt||fillName(pick(P().praises));
   try{AU.success()}catch(e){}
   const lo=$('loloPlay');lo.classList.add('dance','happy');
-  setTimeout(function(){lo.classList.remove('dance','happy')},1700);
+  setTimeout(function(){lo.classList.remove('dance','happy')},2100);
   burstPraise(txt);
+  speak(txt);
   try{confetti(90)}catch(e){}
   S.stars++;sessStars++;save();checkGold();
   flyStar(bumpSess);
@@ -1010,7 +1035,7 @@ function missingGame(ids){
   later(2300,function(){
     AU.whoosh();
     const blind=document.createElement('div');blind.className='blind';
-    blind.innerHTML='<svg viewBox="0 0 130 60"><ellipse cx="65" cy="34" rx="42" ry="20" fill="#FFD3E4"/><ellipse cx="32" cy="38" rx="24" ry="13" fill="#FFD3E4"/><ellipse cx="98" cy="38" rx="26" ry="14" fill="#FFD3E4"/></svg><b>غمّضي عيونك!</b>';
+    blind.innerHTML='<svg viewBox="0 0 130 60" width="130"><ellipse cx="65" cy="34" rx="42" ry="20" fill="#FFD3E4"/><ellipse cx="32" cy="38" rx="24" ry="13" fill="#FFD3E4"/><ellipse cx="98" cy="38" rx="26" ry="14" fill="#FFD3E4"/></svg><b>غمّضي عيونك!</b>';
     area.querySelector('.q-row').appendChild(blind);
     later(1200,function(){
       blind.remove();
@@ -1074,7 +1099,6 @@ function teachLetter(i){
   }
   later(3000,revealNext);
   function heard(){
-    /* نقاط الوقف = نطق أوضح: "ألف. ألف أسد." */
     speak(L.name+'. '+L.name+' '+L.word+'.');AU.cue(L.img);
     card.classList.remove('excited');void card.offsetWidth;card.classList.add('excited');
     markLetter(i);
@@ -1100,7 +1124,7 @@ function pickLetterGame(idxs){
   });
 }
 const BALLOON_COLS=['#FF6FA5','#FFC531','#A78BDB','#3EC1CF','#EC5F9B','#FF8FB8'];
-function balloonSVG(col){return '<svg viewBox="0 0 90 130"><path d="M45 106 q-11 15 2 25" stroke="#C9A9BD" stroke-width="2.5" fill="none"/><ellipse cx="45" cy="48" rx="38" ry="46" fill="'+col+'"/><path d="M45 93 l-8 13 h16 z" fill="'+col+'" filter="brightness(.85)"/><ellipse cx="31" cy="30" rx="9" ry="15" fill="#fff" opacity=".45"/></svg>'}
+function balloonSVG(col){return '<svg viewBox="0 0 90 130" width="92"><path d="M45 106 q-11 15 2 25" stroke="#C9A9BD" stroke-width="2.5" fill="none"/><ellipse cx="45" cy="48" rx="38" ry="46" fill="'+col+'"/><path d="M45 93 l-8 13 h16 z" fill="'+col+'" filter="brightness(.85)"/><ellipse cx="31" cy="30" rx="9" ry="15" fill="#fff" opacity=".45"/></svg>'}
 function balloonsGame(idxs){
   const rounds=shuffle(idxs).slice(0,3);
   let round=0,spawner=null;
@@ -1171,7 +1195,6 @@ function songGame(idxs){
       later(300+k*2100,function(){
         const L=LETTERS[j];
         cards[k].classList.add('lit');AU.chord();
-        /* فاصلة بين الكلمات = إيقاع أغنية حلو */
         speak(L.name+'، '+L.name+'، '+L.word+'!');
         later(1400,function(){AU.cue(L.img)});
         later(2050,function(){cards[k].classList.remove('lit')});
@@ -1192,10 +1215,10 @@ function stickerArt(st){
   if(st.kind==='gold'){return STAR()}
   if(st.kind==='letters'){
     const idxs=LET_LEVELS[st.lvl];
-    return '<svg viewBox="0 0 200 200">'+idxs.map(function(j,k){return '<text x="'+((100-(idxs.length-1)*22)+k*44)+'" y="128" font-size="58" font-weight="800" text-anchor="middle" font-family="Baloo Bhaijaan 2" fill="'+LETTERS[j].col+'">'+LETTERS[j].ch+'</text>'}).join('')+'</svg>';
+    return '<svg viewBox="0 0 200 200" width="100%" height="100%">'+idxs.map(function(j,k){return '<text x="'+((100-(idxs.length-1)*22)+k*44)+'" y="128" font-size="58" font-weight="800" text-anchor="middle" font-family="Baloo Bhaijaan 2" fill="'+LETTERS[j].col+'">'+LETTERS[j].ch+'</text>'}).join('')+'</svg>';
   }
   const ids=ANIM_LEVELS[st.lvl];
-  return '<svg viewBox="0 0 200 200">'+ids.map(function(id,k){return '<g transform="translate('+(k*55-55)+',25) scale(.55)">'+ART[id]+'</g>'}).join('')+'</svg>';
+  return '<svg viewBox="0 0 200 200" width="100%" height="100%">'+ids.map(function(id,k){return '<g transform="translate('+(k*55-55)+',25) scale(.55)">'+ART[id]+'</g>'}).join('')+'</svg>';
 }
 function levelComplete(){
   clearActivity();
@@ -1212,10 +1235,10 @@ function levelComplete(){
   }
   AU.level();confetti(150);
   $('mlTitle').textContent='برافو يا '+S.name+'!';
-  $('mlSub').textContent=already?P().again:(P().done+' المرحلة!');
+  $('mlSub').textContent=already?(P().done+' المرحلة تاني!'):(P().done+' المرحلة!');
   $('mlSticker').innerHTML=newSt
     ?'<div class="sticker-card">'+stickerArt(STICKERS.filter(function(s){return s.id===((kind==='animals'?'a':'l')+idx)})[0])+'<span class="new-tag">ستيكر جديد!</span></div>'
-    :'<div style="margin:10px 0"><span style="display:inline-block;width:26px;height:26px">'+STAR()+'</span><span style="font-size:21px;font-weight:800"> عالمك كبر بحاجات جديدة!</span></div>';
+    :'<div style="margin:10px 0"><span style="display:inline-block;width:26px;height:26px;vertical-align:middle">'+STAR()+'</span><span style="font-size:21px;font-weight:800"> عالمك كبر بحاجات جديدة!</span></div>';
   setTimeout(function(){speak('برافو يا '+S.name+'! '+(newSt?'فتحِت ستيكر جديد!':P().done+' المرحلة!'))},400);
   $('btnLvNext').style.display=(idx+1<levels.length)?'inline-flex':'none';
   $('mLevel').classList.add('on');
@@ -1224,9 +1247,9 @@ function levelComplete(){
 /* ====== عالم كنوزة ====== */
  $('rwBack').innerHTML=I_BACK;
  $('rwBack').addEventListener('click',function(){try{AU.tap()}catch(e){};go('sc-home');refreshTopbar()});
-const TREE='<svg viewBox="0 0 160 200"><rect x="66" y="105" width="28" height="85" rx="12" fill="#A9744B"/><circle cx="80" cy="76" r="48" fill="#6FC286"/><circle cx="48" cy="98" r="30" fill="#7FD094"/><circle cx="112" cy="98" r="30" fill="#7FD094"/><circle cx="55" cy="60" r="9" fill="#FF9BBE"/><circle cx="100" cy="45" r="9" fill="#FF9BBE"/><circle cx="112" cy="80" r="9" fill="#FF9BBE"/></svg>';
-const HOUSE='<svg viewBox="0 0 200 200"><path d="M28 96 L100 28 L172 96 z" fill="#FF6FA5"/><rect x="44" y="92" width="112" height="88" rx="10" fill="#FFF4E0"/><path d="M84 180 v-52 a16 16 0 0 1 32 0 v52 z" fill="#A9744B"/><circle cx="108" cy="152" r="4" fill="#FFC531"/><circle cx="62" cy="122" r="13" fill="#BDE3F0" stroke="#E7A8C0" stroke-width="4"/><circle cx="138" cy="122" r="13" fill="#BDE3F0" stroke="#E7A8C0" stroke-width="4"/></svg>';
-function FLOWER(c){return '<svg viewBox="0 0 80 110"><path d="M40 100 q-3 -35 0 -55" stroke="#5FAE4B" stroke-width="7" fill="none" stroke-linecap="round"/>'+[0,72,144,216,288].map(function(a){return '<circle cx="'+(40+16*Math.cos(a*Math.PI/180)).toFixed(1)+'" cy="'+(38+16*Math.sin(a*Math.PI/180)).toFixed(1)+'" r="12" fill="'+c+'"/>'}).join('')+'<circle cx="40" cy="38" r="10" fill="#FFC531"/></svg>'}
+const TREE='<svg viewBox="0 0 160 200" width="100%"><rect x="66" y="105" width="28" height="85" rx="12" fill="#A9744B"/><circle cx="80" cy="76" r="48" fill="#6FC286"/><circle cx="48" cy="98" r="30" fill="#7FD094"/><circle cx="112" cy="98" r="30" fill="#7FD094"/><circle cx="55" cy="60" r="9" fill="#FF9BBE"/><circle cx="100" cy="45" r="9" fill="#FF9BBE"/><circle cx="112" cy="80" r="9" fill="#FF9BBE"/></svg>';
+const HOUSE='<svg viewBox="0 0 200 200" width="100%"><path d="M28 96 L100 28 L172 96 z" fill="#FF6FA5"/><rect x="44" y="92" width="112" height="88" rx="10" fill="#FFF4E0"/><path d="M84 180 v-52 a16 16 0 0 1 32 0 v52 z" fill="#A9744B"/><circle cx="108" cy="152" r="4" fill="#FFC531"/><circle cx="62" cy="122" r="13" fill="#BDE3F0" stroke="#E7A8C0" stroke-width="4"/><circle cx="138" cy="122" r="13" fill="#BDE3F0" stroke="#E7A8C0" stroke-width="4"/></svg>';
+function FLOWER(c){return '<svg viewBox="0 0 80 110" width="100%"><path d="M40 100 q-3 -35 0 -55" stroke="#5FAE4B" stroke-width="7" fill="none" stroke-linecap="round"/>'+[0,72,144,216,288].map(function(a){return '<circle cx="'+(40+16*Math.cos(a*Math.PI/180)).toFixed(1)+'" cy="'+(38+16*Math.sin(a*Math.PI/180)).toFixed(1)+'" r="12" fill="'+c+'"/>'}).join('')+'<circle cx="40" cy="38" r="10" fill="#FFC531"/></svg>'}
 function gToast(t){
   const g=$('gToast').firstElementChild;g.textContent=t;
   g.classList.remove('show');void g.offsetWidth;g.classList.add('show');
@@ -1244,7 +1267,7 @@ function enterRewards(){
       d+=.15;
       h+='<div class="g-item '+(cls||'')+'" data-fn="'+(fn||'')+'" style="'+style+';animation-delay:'+d.toFixed(2)+'s">'+inner+'</div>';
     }
-    if(hasRainbow){add('<svg viewBox="0 0 260 140" style="width:100%">'+['#FF6FA5','#FFB35C','#FFD23F','#7CC24E','#3EC1CF','#A78BDB'].map(function(c,i){return '<path d="M30 132 A 100 '+(102-i*11)+' 0 0 1 230 132" fill="none" stroke="'+c+'" stroke-width="12"/>'}).join('')+'</svg>','top:2%;left:50%;transform:translateX(-50%);width:60%','','rainbow')}
+    if(hasRainbow){add('<svg viewBox="0 0 260 140" width="100%">'+['#FF6FA5','#FFB35C','#FFD23F','#7CC24E','#3EC1CF','#A78BDB'].map(function(c,i){return '<path d="M30 132 A 100 '+(102-i*11)+' 0 0 1 230 132" fill="none" stroke="'+c+'" stroke-width="12"/>'}).join('')+'</svg>','top:2%;left:50%;transform:translateX(-50%);width:60%','','rainbow')}
     add(TREE,'bottom:6%;left:4%;width:34%','g-bob','tree');
     if(learnedL>=8){add(TREE,'bottom:14%;right:3%;width:27%','g-bob','tree')}
     if(S.stars>=12){add(HOUSE,'bottom:4%;left:50%;transform:translateX(-50%);width:42%','g-bob','house')}
@@ -1303,7 +1326,7 @@ function endSession(){
   clearActivity();sessionActive=false;S.sessions++;save();
   $('endTitle').textContent='برافو يا '+S.name+'!';
   const rows=[];
-  rows.push('<div class="sum-row"><span style="width:30px;height:30px;display:inline-block">'+STAR()+'</span> نجوم النهارده: '+toAr(sessStars)+'</div>');
+  rows.push('<div class="sum-row"><span class="star-ic">'+STAR()+'</span> نجوم النهارده: '+toAr(sessStars)+'</div>');
   rows.push('<div class="sum-row">حروف جديدة:<span class="chips">'+(todayLetters.length?todayLetters.slice(-8).map(function(c){return '<span class="chip">'+c+'</span>'}).join(''):'<span style="color:var(--ink-soft)">لسه بنجهّز!</span>')+'</span></div>');
   rows.push('<div class="sum-row">حيوانات جديدة:<span class="chips">'+(todayAnimals.length?todayAnimals.map(function(id){return '<span class="chip">'+artSVG(id)+'</span>'}).join(''):'<span style="color:var(--ink-soft)">نجرب بكرة!</span>')+'</span></div>');
   $('endSum').innerHTML=rows.join('');
@@ -1333,10 +1356,9 @@ function renderVoices(){
   loadVoices();
   const box=$('pVoices');
   const ar=voices.filter(function(v){return /^ar/i.test(v.lang)});
-  const gSel=S.voiceMode!=='device';
-  var h='<button class="v-btn big '+(gSel?'sel':'')+'" id="vGoogle"><span>صوت جوجل — أنضف جودة (محتاج إنترنت)</span><b>جربي واختاري</b></button>';
+  var h='<button class="v-btn big '+(S.voiceMode!=='device'?'sel':'')+'" id="vGoogle"><span>صوت جوجل — أنضف جودة (محتاج إنترنت)</span><b>جربي واختاري</b></button>';
   if(!ar.length){
-    h+='<p class="p-note">مفيش صوت عربي من الجهاز — فصوت جوجل هو الأنسب. ولو عايزين صوت أوفلاين أحسن: ثبّتي تطبيق «Speech Recognition &amp; Synthesis» أو «Google نص إلى كلام» من متجر التطبيقات، وبعدين افتحي اللعبة تاني.</p>';
+    h+='<p class="p-note">مفيش صوت عربي من الجهاز — فصوت جوجل هو الأنسب. ولو عايزين صوت أوفلاين: ثبّتي تطبيق «Google نص إلى كلام» من متجر التطبيقات وبعدين افتحي اللعبة تاني.</p>';
   }else{
     h+='<p class="p-note" style="margin:6px 0">أصوات الجهاز (شغالة بدون نت):</p>';
     h+=ar.map(function(v){
@@ -1379,7 +1401,7 @@ function renderParent(){
  $('pReset').addEventListener('click',function(){$('pResetConfirm').style.display='flex'});
  $('pResetNo').addEventListener('click',function(){$('pResetConfirm').style.display='none'});
  $('pResetYes').addEventListener('click',function(){
-  S=DEF();save();$('pResetConfirm').style.display='none';
+  S=DEF();S.name='كنوزة';save();$('pResetConfirm').style.display='none';
   $('mParent').classList.remove('on');homeWelcomed=false;
   $('nameInput').value='';go('sc-splash');
 });
