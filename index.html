@@ -57,7 +57,6 @@ svg{display:block}
 .fly svg{animation:flut .4s ease-in-out infinite alternate}
 @keyframes flut{from{transform:scaleX(1)}to{transform:scaleX(.82)}}
 @keyframes flyPath{0%{transform:translate(-16vw,20px)}25%{transform:translate(30vw,-30px)}50%{transform:translate(60vw,18px)}75%{transform:translate(90vw,-24px)}100%{transform:translate(116vw,0)}}
-/* شاشة البداية */
 #sc-splash{overflow-y:auto;background:linear-gradient(#FFDFEE,#FFF7F9 72%)}
 .splash-inner{margin:auto;display:flex;flex-direction:column;align-items:center;text-align:center;padding:34px 20px 44px}
 #sc-splash .logo-box{width:170px;height:170px;border-radius:44px;overflow:hidden;box-shadow:0 10px 0 rgba(255,111,165,.35);animation:loIdle 2.5s infinite}
@@ -70,9 +69,8 @@ svg{display:block}
 .g-row{display:flex;gap:10px;justify-content:center;margin:14px 0 18px}
 .g-pill{border-radius:999px;padding:7px 30px;font-size:19px;font-weight:800;background:#fff;border:3px solid var(--line);color:var(--ink-soft);box-shadow:0 4px 0 rgba(74,52,40,.1)}
 .g-pill.on{background:var(--pink);color:#fff;border-color:var(--pink);box-shadow:0 4px 0 var(--pink-d)}
-.tiny-note{margin-top:20px;font-size:14px;color:var(--ink-soft);max-width:300px;text-align:center;font-weight:600}
+.tiny-note{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:320px;text-align:center;font-weight:600}
 .ver-badge{margin-top:12px;font-size:13px;font-weight:700;color:#B08968;background:#FFEFEE;border:2px solid var(--line);border-radius:999px;padding:4px 18px}
-/* الرئيسية — كل الديكور شفاف للّمس عشان ميغطيش الأزرار أبداً */
 .home-bg{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}
 .map{position:absolute;top:0;left:0;right:0;bottom:0;z-index:2}
 .trail{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:1;opacity:.9;pointer-events:none}
@@ -91,7 +89,6 @@ svg{display:block}
 .home-lolo .lolo{width:135px}
 .cloud{position:absolute;animation:cloudDrift 26s linear infinite}
 @keyframes cloudDrift{from{transform:translateX(-30vw)}to{transform:translateX(115vw)}}
-/* اختيار المرحلة */
 .simple-head{display:flex;align-items:center;gap:12px;padding:14px 14px 6px}
 .simple-head h2{font-size:28px;font-weight:800}
 .level-list{flex:1;overflow-y:auto;padding:10px 18px 24px;display:flex;flex-direction:column;gap:16px}
@@ -110,7 +107,6 @@ svg{display:block}
 .level-card.shake{animation:shake .4s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-9px)}75%{transform:translateX(9px)}}
 .ch-msg{padding:0 24px;font-weight:700;color:var(--ink-soft);min-height:26px;text-align:center}
-/* شاشة اللعب */
 .play-head{display:flex;align-items:center;gap:10px;padding:12px 14px 4px;z-index:5}
 .play-head .spacer{flex:1}
 .sess-count{display:flex;align-items:center;gap:6px;background:#fff;border:3px solid var(--line);border-radius:999px;padding:4px 16px;font-weight:800;font-size:22px;box-shadow:0 3px 0 rgba(74,52,40,.1)}
@@ -176,7 +172,6 @@ svg{display:block}
 .song-card b{font-size:40px;font-weight:800;line-height:1.1}
 .song-card svg{width:66%;margin-top:2px}
 .song-card.lit{transform:translateY(-10px) scale(1.08);border-color:var(--gold);box-shadow:0 10px 0 var(--gold-d)}
-/* عالم كنوزة */
 #sc-rewards{background:#FFDFEE}
 .garden-wrap{flex:1;position:relative;overflow:hidden;margin:6px 14px 0;border-radius:26px;border:4px solid #fff;box-shadow:0 6px 0 rgba(74,52,40,.12)}
 .garden{position:absolute;top:0;left:0;right:0;bottom:0}
@@ -199,7 +194,6 @@ svg{display:block}
 .st-slot.lock:active{animation:shake .4s}
 .st-slot svg{width:82%;height:82%}
 .st-slot .tag{position:absolute;bottom:-4px;right:0;left:0;text-align:center;font-size:10px;font-weight:700;color:var(--ink-soft)}
-/* نهاية الجلسة */
 #sc-end{align-items:center;justify-content:center;text-align:center;padding:20px;gap:14px;background:linear-gradient(#FFDFEE,#FFF7F9);overflow-y:auto}
 #sc-end h2{font-size:40px;color:var(--pink)}
 #sc-end .sum{display:flex;flex-direction:column;gap:12px;background:#fff;border:4px solid var(--line);border-radius:26px;padding:18px 24px;box-shadow:0 6px 0 rgba(74,52,40,.1);max-width:340px;width:100%}
@@ -208,14 +202,12 @@ svg{display:block}
 .sum-row .chip{background:#FFEFEE;border:2px solid var(--line);border-radius:12px;padding:2px 12px;font-size:22px;font-weight:800}
 .sum-row .chip svg{width:44px;height:44px}
 .bye-msg{font-size:26px;font-weight:800}
-/* الاحتفال */
 #praise{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;z-index:70;pointer-events:none}
 #praise span{font-size:min(11vw,58px);font-weight:800;color:#fff;opacity:0;text-shadow:0 4px 0 var(--pink), -2px 0 0 var(--pink), 2px 0 0 var(--pink), 0 -2px 0 var(--pink), 0 8px 14px rgba(0,0,0,.18);-webkit-text-stroke:2px var(--pink)}
 #praise span.show{animation:praiseIn 1.5s cubic-bezier(.34,1.56,.64,1)}
 @keyframes praiseIn{0%{opacity:0;transform:scale(.3) rotate(-6deg)}15%{opacity:1;transform:scale(1.15) rotate(2deg)}30%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(1.05)}}
 #fx{position:fixed;top:0;left:0;right:0;bottom:0;z-index:80;pointer-events:none}
 .fly-star{position:fixed;z-index:85;width:46px;height:46px;pointer-events:none;transition:all .75s cubic-bezier(.5,-.2,.6,1)}
-/* المودالات */
 .modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(74,52,40,.45);padding:18px}
 .modal.on{display:flex}
 .modal .box{background:var(--paper);border-radius:32px;padding:24px 22px;max-width:400px;width:100%;max-height:88vh;overflow-y:auto;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.25)}
@@ -243,6 +235,7 @@ svg{display:block}
 .v-btn{display:flex;align-items:center;justify-content:space-between;width:100%;background:#FFEFEE;border:3px solid var(--line);border-radius:14px;padding:8px 14px;font-weight:700;margin-bottom:8px;font-size:16px}
 .v-btn b{background:var(--lilac);color:#fff;border-radius:999px;padding:2px 16px;font-size:15px}
 .v-btn.sel{border-color:var(--pink);background:#FFE3EE}
+.v-btn.big b{background:var(--pink)}
 @media (max-height:640px){.stage{min-height:128px}.stage .lolo{width:108px}}
 </style>
 </head>
@@ -263,7 +256,7 @@ svg{display:block}
       </div>
       <button class="btn btn-pink btn-xl" id="btnStart">يلا نلعب!</button>
       <p class="tiny-note">للوالدين: اكتبوا اسم طفلكم — والتطبيق سيناديه به طوال الرحلة</p>
-      <p class="ver-badge">الإصدار ٤</p>
+      <p class="ver-badge">الإصدار ٥</p>
     </div>
   </section>
   <section class="screen" id="sc-home">
@@ -352,7 +345,7 @@ svg{display:block}
     </div>
     <div id="parentView" style="display:none;text-align:right">
       <div class="p-time" id="pTime"></div>
-      <div class="p-sec"><h4>الصوت (اختاروا الأنسب لطفلكم)</h4><div id="pVoices"></div></div>
+      <div class="p-sec"><h4>الصوت (اختاروا الأنضف)</h4><div id="pVoices"></div></div>
       <div class="p-sec"><h4>الحروف اللي اتعلمت</h4><div class="p-grid" id="pLetters"></div></div>
       <div class="p-sec"><h4>الحيوانات اللي اتعرّفت</h4><div class="p-grid" id="pAnimals"></div></div>
       <div class="p-sec"><h4>أنشطة من البيت</h4>
@@ -378,7 +371,7 @@ svg{display:block}
   </div>
 </div>
 <script>
-/* ====== شريط الأخطاء: لو حصل أي مشكلة هتظهر هنا عشان نعرف السبب ====== */
+/* ====== شريط الأخطاء ====== */
 function showErrorBar(msg){
   try{
     var old=document.getElementById('errBar');if(old){old.remove()}
@@ -523,7 +516,7 @@ const ORD=['الأولى','التانية','التالتة','الرابعة','ا
 const SESSION_MS=7*60*1000;
 
 /* ====== الحالة والحفظ ====== */
-const DEF=function(){return {name:'',gender:'g',stars:0,stickers:[],letters:Array(28).fill(0),animals:{},levelsAnimals:0,levelsLetters:0,playSeconds:0,sessions:0,voiceURI:''}};
+const DEF=function(){return {name:'',gender:'g',stars:0,stickers:[],letters:Array(28).fill(0),animals:{},levelsAnimals:0,levelsLetters:0,playSeconds:0,sessions:0,voiceURI:'',voiceMode:'auto'}};
 let S=DEF();
 try{
   const raw=localStorage.getItem('knoza_v2');
@@ -535,40 +528,127 @@ const save=function(){try{localStorage.setItem('knoza_v2',JSON.stringify(S))}cat
 let sessionActive=false,sessionStart=0,sessStars=0,todayLetters=[],todayAnimals=[],lastSay='';
 let flow=[],fi=0,chKind='animals',curLevel={kind:'',idx:0},homeWelcomed=false,muted=false;
 
-/* ====== الصوت ====== */
+/* ============================================================
+   محرك الصوت الجديد:
+   1) صوت جوجل أونلاين (جودة عالية، طبيعي) — لو النت شغال
+   2) لو فشل → صوت الجهاز بأفضل صوت عربي متاح، بنبرة طبيعية
+   + تقسيم الكلام لجمل قصيرة مع وقفات = نطق أوضح
+   ============================================================ */
 let voices=[];
 function loadVoices(){try{voices=speechSynthesis.getVoices()||[]}catch(e){voices=[]}}
 function bestVoice(){
   const ar=voices.filter(function(v){return /^ar/i.test(v.lang)});
   if(!ar.length)return null;
-  const fe=/hoda|salma|amina|zeina|zariyah|zariya|fatim|sana|laila|layla|noura|nour|mariam|maryam|hala|rana|dalia|google|zira/i;
-  const me=/naayf|maged|majed|shakir|hamdan|tarik|tariq|omar|fahd|hamed|bashir/i;
-  if(S.voiceURI){for(var i=0;i<ar.length;i++){if(ar[i].voiceURI===S.voiceURI)return ar[i]}}
-  var v1=null,v2=null;
-  for(var j=0;j<ar.length;j++){if(fe.test(ar[j].name)&&!me.test(ar[j].name)){v1=v1||ar[j]}if(!me.test(ar[j].name)){v2=v2||ar[j]}}
-  return v1||v2||ar[0];
+  var g=null,fe=null,any=null;
+  const feRe=/hoda|salma|amina|zeina|zariyah|zariya|fatim|sana|laila|layla|noura|nour|mariam|maryam|hala|rana|dalia|zira|female|انثى/i;
+  const meRe=/naayf|maged|majed|shakir|hamdan|tarik|tariq|omar|fahd|hamed|bashir|male|ذكر/i;
+  for(var i=0;i<ar.length;i++){
+    var v=ar[i];
+    if(/google|natural|neural|wavenet/i.test(v.name)&&!g){g=v}
+    if(feRe.test(v.name)&&!meRe.test(v.name)&&!fe){fe=v}
+    if(!meRe.test(v.name)&&!any){any=v}
+  }
+  if(S.voiceURI){for(var j=0;j<ar.length;j++){if(ar[j].voiceURI===S.voiceURI)return ar[j]}}
+  return g||fe||any||ar[0];
 }
 if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
-function speak(t,cb){
-  const fin=function(){setTalk(false);if(cb)cb()};
-  if(muted||!('speechSynthesis' in window)){setTimeout(fin,Math.min(3800,800+t.length*55));return}
+
+/* إدارة الإيقاف والتبديل بين الأصوات */
+let googleOK=null;             /* null=لسه مجربناش، true=شغال، false=مش متاح */
+const audioCache={};           /* تخزين أصوات جوجل المسموعة عشان التكرار يبقى فوري */
+let SP={seq:0,audio:null,timers:[]};
+function stopSpeak(){
+  SP.seq++;
+  try{if(SP.audio){SP.audio.pause()}}catch(e){}
+  SP.audio=null;
   try{speechSynthesis.cancel()}catch(e){}
-  loadVoices();
-  const u=new SpeechSynthesisUtterance(t);
-  const v=bestVoice();
-  if(v){u.voice=v}
-  u.lang=(v&&v.lang)||'ar-EG';
-  u.rate=.88;u.pitch=1.35;
+  SP.timers.forEach(function(t){clearTimeout(t)});SP.timers=[];
+  setTalk(false);
+}
+function gTTSUrl(text){
+  return 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ar&q='+encodeURIComponent(text);
+}
+function speakGoogle(text,cb){
+  var my=SP.seq;
+  var a=audioCache[text];
+  if(!a){try{a=new Audio(gTTSUrl(text));audioCache[text]=a}catch(e){a=null}}
+  if(!a){speakDevice(text,cb);return}
+  SP.audio=a;
   var done=false;
-  const end=function(){if(done)return;done=true;fin()};
-  u.onend=end;u.onerror=end;
-  setTimeout(end,1400+t.length*160);
+  var fin=function(){if(done||my!==SP.seq)return;done=true;setTalk(false);if(cb)cb()};
+  a.onended=function(){googleOK=true;fin()};
+  a.onerror=function(){
+    if(my!==SP.seq)return;
+    googleOK=false;
+    try{a.pause()}catch(e){}
+    speakDevice(text,cb);
+  };
   setTalk(true);
-  try{speechSynthesis.speak(u)}catch(e){end()}
+  try{a.currentTime=0}catch(e){}
+  var pr=null;
+  try{pr=a.play()}catch(e){}
+  if(pr&&pr.then){
+    pr.then(function(){googleOK=true}).catch(function(){
+      if(my!==SP.seq)return;
+      googleOK=false;speakDevice(text,cb);
+    });
+  }
+  var t=setTimeout(fin,Math.min(15000,3000+text.length*220));
+  SP.timers.push(t);
+}
+/* تقسيم النص عند علامات الوقف — جمل قصيرة بنبرة أنضف */
+function splitText(t){
+  var out=[],cur='';
+  for(var i=0;i<t.length;i++){
+    cur+=t[i];
+    if('!؟.،'.indexOf(t[i])>=0){if(cur.trim())out.push(cur.trim());cur=''}
+  }
+  if(cur.trim())out.push(cur.trim());
+  return out.length?out:[t];
+}
+function speakDevice(text,cb){
+  var my=SP.seq;
+  if(!('speechSynthesis' in window)){
+    setTalk(true);
+    var t0=setTimeout(function(){if(my===SP.seq)setTalk(false);if(cb)cb()},Math.min(4000,900+text.length*90));
+    SP.timers.push(t0);return;
+  }
+  var segs=splitText(text);
+  setTalk(true);
+  var idx=0;
+  function next(){
+    if(my!==SP.seq)return;
+    if(idx>=segs.length){setTalk(false);if(cb)cb();return}
+    var seg=segs[idx++];
+    var u=new SpeechSynthesisUtterance(seg);
+    var v=bestVoice();
+    if(v){u.voice=v}
+    u.lang=(v&&v.lang)||'ar-EG';
+    u.rate=.85;   /* أهدى = أوضح للطفل */
+    u.pitch=1.0;  /* طبيعي من غير تشويه */
+    u.volume=1;
+    var done=false;
+    function step(){if(done||my!==SP.seq)return;done=true;setTimeout(next,150)}
+    u.onend=step;u.onerror=step;
+    try{speechSynthesis.speak(u)}catch(e){step()}
+    var t=setTimeout(step,2600+seg.length*280);
+    SP.timers.push(t);
+  }
+  next();
+}
+/* نقطة الدخول الموحدة */
+function speak(t,cb){
+  stopSpeak();
+  if(muted){if(cb)cb();return}
+  if(S.voiceMode!=='device'&&googleOK!==false){
+    speakGoogle(t,cb);
+  }else{
+    speakDevice(t,cb);
+  }
 }
 function setTalk(on){document.querySelectorAll('.lolo').forEach(function(l){l.classList.toggle('talk',on)})}
 
-/* ====== أصوات Web Audio ====== */
+/* ====== أصوات المؤثرات ====== */
 const AU={
   ctx:null,master:null,noiseBuf:null,
   ensure(){
@@ -697,8 +777,7 @@ const later=function(ms,fn){var id=setTimeout(fn,ms);cleanups.push(function(){cl
 const every=function(ms,fn){var id=setInterval(fn,ms);cleanups.push(function(){clearInterval(id)});return id};
 function clearActivity(){
   cleanups.forEach(function(f){f()});cleanups=[];
-  try{speechSynthesis.cancel()}catch(e){}
-  setTalk(false);
+  stopSpeak();
   area.classList.remove('locked');area.innerHTML='';
 }
 
@@ -719,6 +798,7 @@ document.querySelectorAll('.g-pill').forEach(function(b){
   S.gender=on?on.getAttribute('data-g'):'g';
   save();
   go('sc-home');
+  /* أول جملة بتشتغل جوه الضغطة = بتفتح الصوت وبتجرب صوت جوجل في نفس الوقت */
   speak('أهلاً يا '+S.name+'! يلا نلعب!');
   enterHome();
 });
@@ -733,12 +813,10 @@ document.querySelectorAll('.g-pill').forEach(function(b){
 +'<button class="world" id="wAnimals" style="--sz:165px;--wc:#FF6FA5;--wd:#E04E86;top:8%;right:5%;animation-delay:.1s"><span class="disc"><span class="art">'+artSVG('cat')+'</span></span><span class="lbl">الحيوانات</span></button>'
 +'<button class="world" id="wLetters" style="--sz:155px;--wc:#A78BDB;--wd:#8B66C7;top:32%;left:4%;animation-delay:.25s"><span class="disc"><span class="art" style="display:flex;gap:2px;align-items:center"><b style="color:#FF6FA5;font-size:48px">أ</b><b style="color:#FFC531;font-size:36px">ب</b><b style="color:#3EC1CF;font-size:36px">ت</b></span></span><span class="lbl">الحروف</span></button>'
 +'<button class="world" id="wWorld" style="--sz:125px;--wc:#FFC531;--wd:#E8A61E;bottom:15%;right:10%;animation-delay:.4s"><span class="disc"><span class="art" style="width:64%;height:64%">'+STAR()+'</span></span><span class="lbl">عالم كنوزة</span></button>';
-
-/* ====== أزرار العوالم: التنقل فوراً — قبل أي كلام أو صوت ====== */
 function pulse(el){try{el.classList.add('tapped');setTimeout(function(){el.classList.remove('tapped')},250)}catch(e){}}
  $('wAnimals').addEventListener('click',function(){
   pulse(this);
-  openChoose('animals');                 /* التنقل الأول — فوراً */
+  openChoose('animals');
   try{AU.whoosh()}catch(e){}
   speak('يلا نشوف الحيوانات يا '+S.name+'!');
 });
@@ -746,7 +824,7 @@ function pulse(el){try{el.classList.add('tapped');setTimeout(function(){el.class
   pulse(this);
   openChoose('letters');
   try{AU.whoosh()}catch(e){}
-  speak('يلا نتعلم حروف يا '+S.name+'!');
+  speak('يلا نتعلم الحروف يا '+S.name+'!');
 });
  $('wWorld').addEventListener('click',function(){
   pulse(this);
@@ -769,7 +847,7 @@ function refreshTopbar(){
   $('btnSound').innerHTML=muted?I_MUTE:I_SND;
   $('btnParents').innerHTML=I_PAR;
 }
- $('btnSound').addEventListener('click',function(){muted=!muted;if(muted){try{speechSynthesis.cancel()}catch(e){}}refreshTopbar()});
+ $('btnSound').addEventListener('click',function(){muted=!muted;if(muted){stopSpeak()}refreshTopbar()});
  $('btnParents').addEventListener('click',function(){try{AU.tap()}catch(e){};openParents()});
 function enterHome(){
   refreshTopbar();
@@ -803,7 +881,7 @@ function openChoose(kind){
       });
     });
   }catch(e){showErrorBar(e.message)}
-  go('sc-choose');   /* التنقل يحصل دايماً */
+  go('sc-choose');
 }
 
 /* ====== محرك اللعب ====== */
@@ -828,7 +906,7 @@ function checkGold(){
   }
 }
 function celebrate(cb,txt){
-  setTimeout(function(){area.classList.remove('locked');if(cb)cb()},1800); /* فك القفل أول حاجة */
+  setTimeout(function(){area.classList.remove('locked');if(cb)cb()},1800);
   area.classList.add('locked');
   txt=txt||fillName(pick(P().praises));
   try{AU.success()}catch(e){}
@@ -858,7 +936,7 @@ function startLevel(kind,idx){
   flow=kind==='animals'?animalsFlow(ANIM_LEVELS[idx]):lettersFlow(LET_LEVELS[idx]);
   fi=0;
   sayPlay(fillName('يلا يا {n}! نبدأ المغامرة!'),{happy:true});
-  later(1600,nextStep);
+  later(1800,nextStep);
 }
 function nextStep(){
   if(sessionElapsed()>SESSION_MS){endSession();return}
@@ -889,7 +967,7 @@ function teachAnimal(id){
     if(once)return;once=true;
     markAnimal(id);
     sayPlay('ده '+an.name+'! '+P().smart+' يا '+S.name+'!',{happy:true});
-    later(1900,nextStep);
+    later(2100,nextStep);
   });
 }
 function pickAnimalGame(ids){
@@ -996,7 +1074,8 @@ function teachLetter(i){
   }
   later(3000,revealNext);
   function heard(){
-    speak(L.name+'! '+L.name+' '+L.word+'!');AU.cue(L.img);
+    /* نقاط الوقف = نطق أوضح: "ألف. ألف أسد." */
+    speak(L.name+'. '+L.name+' '+L.word+'.');AU.cue(L.img);
     card.classList.remove('excited');void card.offsetWidth;card.classList.add('excited');
     markLetter(i);
     later(600,revealNext);
@@ -1089,12 +1168,13 @@ function songGame(idxs){
   function sing(){
     cards.forEach(function(c){c.classList.remove('lit')});
     idxs.forEach(function(j,k){
-      later(300+k*2000,function(){
+      later(300+k*2100,function(){
         const L=LETTERS[j];
         cards[k].classList.add('lit');AU.chord();
-        speak(L.name+' '+L.name+' '+L.word+'!');
+        /* فاصلة بين الكلمات = إيقاع أغنية حلو */
+        speak(L.name+'، '+L.name+'، '+L.word+'!');
         later(1400,function(){AU.cue(L.img)});
-        later(1950,function(){cards[k].classList.remove('lit')});
+        later(2050,function(){cards[k].classList.remove('lit')});
       });
     });
   }
@@ -1251,20 +1331,33 @@ function openParents(){
 }
 function renderVoices(){
   loadVoices();
-  const ar=voices.filter(function(v){return /^ar/i.test(v.lang)});
   const box=$('pVoices');
+  const ar=voices.filter(function(v){return /^ar/i.test(v.lang)});
+  const gSel=S.voiceMode!=='device';
+  var h='<button class="v-btn big '+(gSel?'sel':'')+'" id="vGoogle"><span>صوت جوجل — أنضف جودة (محتاج إنترنت)</span><b>جربي واختاري</b></button>';
   if(!ar.length){
-    box.innerHTML='<p class="p-note">مفيش صوت عربي على الجهاز ده. ثبّتي تطبيق «Google نص إلى كلام» من متجر التطبيقات أو فعّلي صوت عربي من إعدادات الجهاز، وبعدين افتحي اللعبة تاني — وكل حاجة هتتنطق.</p>';
-    return;
+    h+='<p class="p-note">مفيش صوت عربي من الجهاز — فصوت جوجل هو الأنسب. ولو عايزين صوت أوفلاين أحسن: ثبّتي تطبيق «Speech Recognition &amp; Synthesis» أو «Google نص إلى كلام» من متجر التطبيقات، وبعدين افتحي اللعبة تاني.</p>';
+  }else{
+    h+='<p class="p-note" style="margin:6px 0">أصوات الجهاز (شغالة بدون نت):</p>';
+    h+=ar.map(function(v){
+      const nm=v.name.replace(/Microsoft|Google|Private|Compact|Online|Natural/g,'').trim()||v.name;
+      return '<button class="v-btn '+(S.voiceMode==='device'&&v.voiceURI===S.voiceURI?'sel':'')+'" data-u="'+encodeURIComponent(v.voiceURI)+'"><span>'+nm+' ('+v.lang+')</span><b>جربي واختاري</b></button>';
+    }).join('');
+    h+='<p class="p-note">لتحسين أصوات الجهاز: الإعدادات ← إدارة عامة ← تحويل النص إلى كلام ← اختاري محرك جوجل ونزّلي الصوت العربي.</p>';
   }
-  box.innerHTML=ar.map(function(v){
-    const nm=v.name.replace(/Microsoft|Google|Private|Compact|Online|Natural/g,'').trim()||v.name;
-    return '<button class="v-btn '+(v.voiceURI===S.voiceURI?'sel':'')+'" data-u="'+encodeURIComponent(v.voiceURI)+'"><span>'+nm+' ('+v.lang+')</span><b>جربي واختاري</b></button>';
-  }).join('');
-  box.querySelectorAll('.v-btn').forEach(function(b){
+  box.innerHTML=h;
+  const gBtn=box.querySelector('#vGoogle');
+  if(gBtn){
+    gBtn.addEventListener('click',function(){
+      S.voiceMode='google';googleOK=null;save();
+      speak('أهلاً يا '+S.name+'! أنا صديقتك لولو!');
+      setTimeout(function(){renderVoices()},300);
+    });
+  }
+  box.querySelectorAll('.v-btn[data-u]').forEach(function(b){
     b.addEventListener('click',function(){
-      S.voiceURI=decodeURIComponent(b.getAttribute('data-u'));save();
-      renderVoices();AU.tap();
+      S.voiceMode='device';S.voiceURI=decodeURIComponent(b.getAttribute('data-u'));save();
+      stopSpeak();renderVoices();AU.tap();
       speak('أهلاً يا '+S.name+'! أنا صديقتك لولو!');
     });
   });
@@ -1305,7 +1398,7 @@ function renderParent(){
 })();
 
 go('sc-splash');
-document.addEventListener('visibilitychange',function(){if(document.hidden){try{speechSynthesis.cancel()}catch(e){}}});
+document.addEventListener('visibilitychange',function(){if(document.hidden){stopSpeak()}});
 </script>
 </body>
 </html>
