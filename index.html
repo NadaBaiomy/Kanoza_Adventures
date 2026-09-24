@@ -436,25 +436,22 @@ const toAr=n=>String(n).replace(/\d/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.
    2) لو فشل التحميل → يرجع للصوت المولّد المدمج (WAV)
    ============================================================ */
 const GL='https://actions.google.com/sounds/v1/animals/';
-/* مصادر التسجيلات الحقيقية — ويكيميديا كومنز + جوجل */
-const GL='https://actions.google.com/sounds/v1/animals/';
-const WC='https://commons.wikimedia.org/wiki/Special:FilePath/';
 const REAL_URLS={
-  lion:[WC+'Lion_roar.ogg',WC+'Lion_raring-sound1TamilNadu178.ogg',GL+'lion_roar.ogg'],
-  cat:[WC+'Meow.ogg',WC+'Cat_meow.ogg',GL+'cat_meow.ogg'],
-  dog:[WC+'Bark_of_dog.ogg',WC+'Dog_bark.ogg',GL+'dog_bark.ogg'],
-  cow:[WC+'Moo.ogg',WC+'Cow_moo.ogg',GL+'cow_moo.ogg'],
-  duck:[WC+'Quack.ogg',WC+'Duck_quack.ogg',GL+'duck_quack.ogg'],
-  elephant:[WC+'Elephant_trumpeting.ogg',WC+'Elephant_call.ogg',GL+'elephant_call.ogg'],
-  bear:[WC+'Bear_growl.ogg',GL+'bear_growl.ogg'],
-  sheep:[WC+'Sheep_bleat.ogg',WC+'Bleat_of_a_sheep.ogg',GL+'sheep_bleat.ogg'],
-  horse:[WC+'Horse_neigh.ogg',WC+'Neigh.ogg',GL+'horse_neigh.ogg'],
-  wolf:[WC+'Wolf_howl.ogg',WC+'Wolf_howling.ogg',GL+'wolf_howling.ogg'],
-  snake:[WC+'Snake_hiss.ogg',GL+'snake_hiss.ogg'],
-  croc:[WC+'Crocodile_hiss.ogg',GL+'crocodile_hiss.ogg'],
+  lion:[GL+'lion_roar.ogg',GL+'lion_growl.ogg',GL+'lion_roaring.ogg'],
+  cat:[GL+'cat_meow.ogg',GL+'cat_meow_2.ogg',GL+'cat_meow_1.ogg'],
+  dog:[GL+'dog_bark.ogg',GL+'dog_bark_1.ogg',GL+'dog_barking.ogg'],
+  cow:[GL+'cow_moo.ogg',GL+'cow_moo_1.ogg',GL+'cow_mooing.ogg'],
+  duck:[GL+'duck_quack.ogg',GL+'duck_quacking.ogg'],
+  elephant:[GL+'elephant_call.ogg',GL+'elephant_trumpet.ogg'],
+  bear:[GL+'bear_growl.ogg',GL+'bear_roar.ogg',GL+'bear_growl_1.ogg'],
+  sheep:[GL+'sheep_bleat.ogg',GL+'goat_bleat.ogg'],
+  horse:[GL+'horse_neigh.ogg',GL+'horse_gallop.ogg'],
+  wolf:[GL+'wolf_howling.ogg',GL+'wolf_howl.ogg'],
+  snake:[GL+'snake_hiss.ogg',GL+'snake_rattle.ogg'],
+  croc:[GL+'crocodile_hiss.ogg',GL+'alligator_hiss.ogg'],
   camel:[GL+'camel_grunt.ogg',GL+'camel_call.ogg'],
-  frog:[WC+'Frog_croaking.ogg',WC+'Frog_croak.ogg',GL+'frog_croak.ogg'],
-  bee:[WC+'Bee_buzzing.ogg',GL+'bee_buzz.ogg'],
+  frog:[GL+'frog_croak.ogg',GL+'frog_ribbit.ogg'],
+  bee:[GL+'bee_buzz.ogg',GL+'bee_buzzing.ogg'],
   fish:[],
   giraffe:[],gazelle:[],pome:[],sun:[],moon:[],ball:[],lemon:[],banana:[],grapes:[],cloud:[],gift:[],rose:[],hand:[],rocket:[],plane:[]
 };
@@ -466,26 +463,12 @@ function tryRealSound(id,whenOK,whenFail){
     if(k>=urls.length){whenFail();return}
     var url=urls[k];
     if(realOK[url]===false){tryIdx(k+1);return}
-    if(realOK[url]===true){
-      /* لقينا الملف قبل كده — شغّليه من الكاش */
-      var cached=tryRealSound._cache=tryRealSound._cache||{};
-      var a=cached[url];
-      if(!a){a=new Audio(url);cached[url]=a}
-      whenOK(a);
-      return;
-    }
     var a=new Audio();
     a.preload='auto';
-    var tm=setTimeout(function(){realOK[url]=false;tryIdx(k+1)},6000);
-    a.addEventListener('canplaythrough',function(){
-      clearTimeout(tm);realOK[url]=true;
-      tryRealSound._cache=tryRealSound._cache||{};
-      tryRealSound._cache[url]=a;
-      whenOK(a);
-    },true);
+    var tm=setTimeout(function(){realOK[url]=false;tryIdx(k+1)},2500);
+    a.addEventListener('canplaythrough',function(){clearTimeout(tm);realOK[url]=true;whenOK(a);},true);
     a.addEventListener('error',function(){clearTimeout(tm);realOK[url]=false;tryIdx(k+1)},true);
     a.src=url;
-    a.load();
   }
   tryIdx(0);
 }
@@ -1120,45 +1103,21 @@ animalSound=function(id,cb){
     setTimeout(done,Math.floor((snd.dur+0.7)*1000));
   });
 };
-  $('btnSndTest').addEventListener('click',function(){
+ $('btnSndTest').addEventListener('click',function(){
   try{AU.ensure()}catch(e){}
   stopSpeak();
-  $('sndStatus').innerHTML='جارٍ تحميل التسجيلات...';
-  var ids=['cat','lion','dog','cow','elephant','duck'];
-  var k=0,loaded=0;
-  function nx(){
-    if(k>=ids.length){
-      if(loaded>0){
-        $('sndStatus').innerHTML='<span class="ok">شغّلنا '+toAr(loaded)+' من '+toAr(ids.length)+' تسجيلات حقيقية ✓</span>';
-      }else{
-        $('sndStatus').innerHTML='<span class="no">التسجيلات مش بتتحمّل من الإنترنت. لازم نت من غير حاجب + جربي فتح موقع ويكيبيديا عشان نتأكد إن النت شغال وبيفتح مواقع</span>';
-      }
-      return;
-    }
-    var id=ids[k++];
-    var played=false;
-    tryRealSound(id,function(a){
-      loaded++;
-      stopSnd();curSnd=a;
-      a.onended=function(){curSnd=null;setTimeout(nx,300)};
-      a.onerror=function(){curSnd=null;setTimeout(nx,300)};
-      try{a.currentTime=0;a.play()}catch(e){setTimeout(nx,300)}
-      setTimeout(function(){if(!played){played=true;nx()}},10000);
-    },function(){
-      /* فشل — الصوت المولّد */
-      var snd=null;
-      try{snd=getSound(id)}catch(e){}
-      if(snd){
-        stopSnd();
-        var b=new Audio(snd.uri);
-        curSnd=b;
-        b.onended=function(){curSnd=null;setTimeout(nx,300)};
-        try{b.currentTime=0;b.play()}catch(e){setTimeout(nx,300)}
-      }
-      setTimeout(nx,3000);
-    });
-  }
-  nx();
+  $('sndStatus').innerHTML='جارٍ التحميل...';
+  testAnimalSounds($('sndStatus'));
+});
+ $('btnStart').addEventListener('click',function(){
+  try{AU.ensure()}catch(e){}
+  S.name=($('nameInput').value.trim()||'كنوزة');
+  const on=document.querySelector('.g-pill.on');
+  S.gender=on?on.getAttribute('data-g'):'g';
+  save();
+  go('sc-home');
+  speak('أهلاً يا '+S.name+'! يلا نلعب!');
+  enterHome();
 });
 
 /* ====== الرئيسية ====== */
