@@ -39,7 +39,6 @@ svg{display:block}
 .g-item svg{width:100%;height:auto}
 .sess-count svg{width:100%;height:100%}
 .level-card .st svg{width:100%;height:100%}
-/* لافتة صوت الحيوان — بتظهر فوق الحيوان */
 .sndfx{
   position:absolute;top:5%;left:50%;transform:translateX(-50%);
   background:#fff;border:3px solid var(--gold);border-radius:20px;
@@ -51,8 +50,7 @@ svg{display:block}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font-weight:800;color:#fff;padding:16px 34px;font-size:22px;box-shadow:0 6px 0 rgba(0,0,0,.16);transition:transform .08s}
 .btn:active{transform:translateY(5px);box-shadow:0 1px 0 rgba(0,0,0,.16)}
 .btn-pink{background:var(--pink)} .btn-lilac{background:var(--lilac)}
-.btn-leaf{background:var(--leaf)} .btn-aqua{background:var(--aqua)}
-.btn-xl{font-size:26px;padding:16px 44px}
+.btn-leaf{background:var(--leaf)} .btn-xl{font-size:26px;padding:16px 44px}
 .btn-gold{background:var(--gold);box-shadow:0 6px 0 var(--gold-d)}
 .icon-btn{width:54px;height:54px;border-radius:50%;background:#fff;border:3px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 4px 0 rgba(74,52,40,.12);transition:transform .08s}
 .icon-btn:active{transform:translateY(3px)}
@@ -89,7 +87,7 @@ svg{display:block}
 .g-row{display:flex;gap:10px;justify-content:center;margin:14px 0 18px}
 .g-pill{border-radius:999px;padding:7px 30px;font-size:19px;font-weight:800;background:#fff;border:3px solid var(--line);color:var(--ink-soft);box-shadow:0 4px 0 rgba(74,52,40,.1)}
 .g-pill.on{background:var(--pink);color:#fff;border-color:var(--pink);box-shadow:0 4px 0 var(--pink-d)}
-.tiny-note{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:320px;text-align:center;font-weight:600}
+.tiny-note{margin-top:18px;font-size:14px;color:var(--ink-soft);max-width:340px;text-align:center;font-weight:600}
 .ver-badge{margin-top:14px;font-size:17px;font-weight:800;color:#B0541E;background:#FFE9BF;border:3px solid var(--gold);border-radius:999px;padding:6px 26px}
 .home-bg{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}
 .map{position:absolute;top:0;left:0;right:0;bottom:0;z-index:2}
@@ -159,7 +157,6 @@ svg{display:block}
 .tool-btn{background:#fff;border:4px solid var(--line);border-radius:20px;padding:8px 20px;font-size:20px;font-weight:800;box-shadow:0 5px 0 rgba(74,52,40,.12);display:flex;align-items:center;gap:8px;transition:transform .1s}
 .tool-btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(74,52,40,.12)}
 .tool-btn svg{width:24px;height:24px}
-/* زرار اسمعي صوته الكبير */
 .snd-btn{background:var(--gold);border:4px solid var(--gold-d);color:#fff;border-radius:999px;padding:12px 34px;font-size:23px;font-weight:800;box-shadow:0 6px 0 var(--gold-d);display:flex;align-items:center;gap:10px;transition:transform .1s}
 .snd-btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--gold-d)}
 .snd-btn svg{width:28px;height:28px}
@@ -273,7 +270,7 @@ svg{display:block}
     <div class="t1">اللعبة مش شغالة على الجهاز ده</div>
     <div class="t2">ده معناه إن الملف اتحفظ ناقص أو بيتفتح ببرنامج مش متصفح.<br>
     انسخي الكود <b>من أول سطر لآخر سطر</b>، افتحي «المفكرة» (Notepad)، الصقيه،<br>
-    واحفظيه باسم <b>kenoza11.html</b> مع «Encoding: UTF-8»،<br>
+    واحفظيه باسم <b>kenoza12.html</b> مع «Encoding: UTF-8»،<br>
     وبعدين افتحي الملف بـ <b>Google Chrome</b>.</div>
   </div>
 
@@ -292,8 +289,8 @@ svg{display:block}
       </div>
       <button class="btn btn-pink btn-xl" id="btnStart">يلا نلعب!</button>
       <button class="btn btn-gold" id="btnSndTest" style="margin-top:14px;font-size:20px;padding:12px 30px">جربي صوت الحيوانات</button>
-      <p class="tiny-note">للوالدين: دوسي «جربي صوت الحيوانات» — لازم تسمعي القط بيقول مياو</p>
-      <p class="ver-badge">الإصدار ١١</p>
+      <p class="tiny-note">دوسي «جربي صوت الحيوانات» — لازم تسمعي <b>تسجيل حقيقي</b> للقط والأسد (محتاج إنترنت)</p>
+      <p class="ver-badge">الإصدار ١٢</p>
     </div>
   </section>
 
@@ -391,9 +388,9 @@ svg{display:block}
     <div id="parentView" style="display:none;text-align:right">
       <div class="p-time" id="pTime"></div>
       <div class="p-sec"><h4>الصوت (اختاروا الأنضف)</h4><div id="pVoices"></div></div>
-      <div class="p-sec"><h4>أصوات الحيوانات (اختبريها هنا)</h4>
+      <div class="p-sec"><h4>أصوات الحيوانات الحقيقية (اختبريها هنا)</h4>
         <div class="row"><button class="btn btn-line" id="pSndTest">شغّلي أصوات الحيوانات</button></div>
-        <p class="p-note" style="margin-top:8px">هتسمعي الأسد والقط والبقرة والكلب والفيل والبطة ورا بعض — كل واحد بيقول صوته.</p>
+        <p class="p-note" style="margin-top:8px">الأصوات تسجيلات حقيقية بتتحمّل من مكتبة أصوات جوجل — محتاجة إنترنت. لو صوت حيوان معين مش موجود في المكتبة، اللعبة بتشغل صوت مولّد بديل.</p>
       </div>
       <div class="p-sec"><h4>الحروف اللي اتعلمت</h4><div class="p-grid" id="pLetters"></div></div>
       <div class="p-sec"><h4>الحيوانات اللي اتعرّفت</h4><div class="p-grid" id="pAnimals"></div></div>
@@ -566,29 +563,33 @@ const STICKERS=[
 const ORD=['الأولى','التانية','التالتة','الرابعة','الخامسة','السادسة','السابعة'];
 const SESSION_MS=7*60*1000;
 
-/* ====== أصوات الحيوانات الكلامية ====== */
+/* ====== أصوات الحيوانات الحقيقية — تسجيلات من مكتبة أصوات جوجل ====== */
+const SND_BASE='https://actions.google.com/sounds/v1/animals/';
+const ANIMAL_FILES={
+  lion:['lion_roar','lion_growl','lion_roaring'],
+  cat:['cat_meow','cat_meow_2','cat_meow_1'],
+  dog:['dog_bark','dog_bark_1','dog_barking'],
+  duck:['duck_quack','duck_quacking'],
+  cow:['cow_moo','cow_moo_1','cow_mooing'],
+  elephant:['elephant_call','elephant_trumpet'],
+  bear:['bear_growl','bear_roar'],
+  croc:['crocodile_hiss','alligator_hiss'],
+  camel:['camel_grunt','camel_call'],
+  sheep:['sheep_bleat','goat_bleat'],
+  horse:['horse_neigh','horse_gallop'],
+  wolf:['wolf_howl','wolf_howling'],
+  snake:['snake_hiss','snake_rattle'],
+  frog:['frog_croak','frog_ribbit'],
+  bee:['bee_buzz','bee_buzzing'],
+  fish:[],giraffe:[],gazelle:[],pome:[],sun:[],moon:[],ball:[],lemon:[],banana:[],grapes:[],cloud:[],gift:[],rose:[],hand:[],rocket:[],plane:[]
+};
+/* كلمات الصوت للعرض المكتوب فوق الحيوان */
 const ANIMAL_VOICE={
-  lion:'راااااااااااار! راااااااار!',
-  elephant:'بررررررررر! برررررررر!',
-  cat:'مياو! مياو! مياو!',
-  dog:'هاب هاب! هاب هاب!',
-  duck:'كواك كواك! كواك كواك!',
-  cow:'مموووووووو! ممووووووو!',
-  croc:'غرررررررر! غررررررر!',
-  camel:'همممممممم! هممممممم!',
-  bear:'جررررررررر! جرررررررر!',
-  snake:'فسسسسسسسسسسس!',
-  horse:'هيييييييييييه! هيييييييه!',
-  sheep:'ماء ماء! ماء ماء!',
-  wolf:'أووووووووووو! أووووووووو!',
-  giraffe:'همممممممم!',
-  gazelle:'هممممممم!',
-  fish:'بلوب! بلوب! بلوب!',
-  frog:'قرق قرق! قرق قرق!',
-  bee:'ززززززززززززز!',
-  rocket:'فششششششششووووووو!',
-  plane:'فشششششششوووووو!',
-  ball:'بونج! بونج! بونج!'
+  lion:'راااااااار!',elephant:'بررررررررر!',cat:'مياو! مياو!',dog:'هاب هاب!',
+  duck:'كواك كواك!',cow:'ممووووو!',croc:'غرررررر!',camel:'همممممم!',
+  bear:'جررررررر!',snake:'فسسسسسس!',horse:'هييييييه!',sheep:'ماء ماء!',
+  wolf:'أوووووووو!',fish:'بلوب! بلوب!',frog:'قرق قرق!',bee:'زززززززز!',
+  giraffe:'همممم!',gazelle:'همممم!',rocket:'فششششوووو!',plane:'فششششوووو!',ball:'بونج! بونج!'
 };
 
 /* ====== الحالة والحفظ ====== */
@@ -606,7 +607,7 @@ const fillName=s=>s.split('{n}').join(S.name||'كنوزة');
 let sessionActive=false,sessionStart=0,sessStars=0,todayLetters=[],todayAnimals=[],lastSay='';
 let flow=[],fi=0,chKind='animals',curLevel={kind:'',idx:0},homeWelcomed=false,muted=false;
 
-/* ====== محرك الصوت ====== */
+/* ====== محرك الكلام ====== */
 let voices=[];
 function loadVoices(){try{voices=speechSynthesis.getVoices()||[]}catch(e){voices=[]}}
 function bestVoice(){
@@ -628,8 +629,11 @@ if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loa
 let googleOK=null;
 const audioCache={};
 let SP={seq:0,audio:null,timers:[]};
+let curSnd=null;   /* صوت الحيوان الحالي */
+function stopSnd(){try{if(curSnd){curSnd.pause()}}catch(e){}}
 function stopSpeak(){
   SP.seq++;
+  stopSnd();
   try{if(SP.audio){SP.audio.pause()}}catch(e){}
   SP.audio=null;
   try{speechSynthesis.cancel()}catch(e){}
@@ -639,11 +643,11 @@ function stopSpeak(){
 function gTTSUrl(text){
   return 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=ar&q='+encodeURIComponent(text);
 }
-function speakGoogle(text,cb,noTalk){
+function speakGoogle(text,cb){
   var my=SP.seq;
   var a=audioCache[text];
   if(!a){try{a=new Audio(gTTSUrl(text));audioCache[text]=a}catch(e){a=null}}
-  if(!a){speakDevice(text,cb,noTalk);return}
+  if(!a){speakDevice(text,cb);return}
   SP.audio=a;
   var done=false;
   var fin=function(){if(done||my!==SP.seq)return;done=true;setTalk(false);if(cb)cb()};
@@ -652,16 +656,16 @@ function speakGoogle(text,cb,noTalk){
     if(my!==SP.seq)return;
     googleOK=false;
     try{a.pause()}catch(e){}
-    speakDevice(text,cb,noTalk);
+    speakDevice(text,cb);
   };
-  if(!noTalk)setTalk(true);
+  setTalk(true);
   try{a.currentTime=0}catch(e){}
   var pr=null;
   try{pr=a.play()}catch(e){}
   if(pr&&pr.then){
     pr.then(function(){googleOK=true}).catch(function(){
       if(my!==SP.seq)return;
-      googleOK=false;speakDevice(text,cb,noTalk);
+      googleOK=false;speakDevice(text,cb);
     });
   }
   var t=setTimeout(fin,Math.min(15000,3000+text.length*220));
@@ -676,15 +680,15 @@ function splitText(t){
   if(cur.trim())out.push(cur.trim());
   return out.length?out:[t];
 }
-function speakDevice(text,cb,noTalk){
+function speakDevice(text,cb){
   var my=SP.seq;
   if(!('speechSynthesis' in window)){
-    if(!noTalk)setTalk(true);
+    setTalk(true);
     var t0=setTimeout(function(){if(my===SP.seq)setTalk(false);if(cb)cb()},Math.min(4000,900+text.length*90));
     SP.timers.push(t0);return;
   }
   var segs=splitText(text);
-  if(!noTalk)setTalk(true);
+  setTalk(true);
   var idx=0;
   function next(){
     if(my!==SP.seq)return;
@@ -694,8 +698,7 @@ function speakDevice(text,cb,noTalk){
     var v=bestVoice();
     if(v){u.voice=v}
     u.lang=(v&&v.lang)||'ar-EG';
-    if(noTalk){u.rate=.9;u.pitch=1.35}else{u.rate=.85;u.pitch=1.0}
-    u.volume=1;
+    u.rate=.85;u.pitch=1.0;u.volume=1;
     var done=false;
     function step(){if(done||my!==SP.seq)return;done=true;setTimeout(next,150)}
     u.onend=step;u.onerror=step;
@@ -705,18 +708,19 @@ function speakDevice(text,cb,noTalk){
   }
   next();
 }
-function speak(t,cb,noTalk){
+function speak(t,cb){
   stopSpeak();
   if(muted){if(cb)cb();return}
   if(S.voiceMode!=='device'&&googleOK!==false){
-    speakGoogle(t,cb,noTalk);
+    speakGoogle(t,cb);
   }else{
-    speakDevice(t,cb,noTalk);
+    speakDevice(t,cb);
   }
 }
 function setTalk(on){document.querySelectorAll('.lolo').forEach(function(l){l.classList.toggle('talk',on)})}
 
-/* ====== صوت الحيوان ====== */
+/* ====== صوت الحيوان: التسجيل الحقيقي الأول، ولو مش موجود صوت مولّد ====== */
+const sndCache={};
 function showSndFx(text){
   try{
     var old=document.getElementById('sndfx');if(old){old.remove()}
@@ -724,21 +728,53 @@ function showSndFx(text){
     var d=document.createElement('div');d.id='sndfx';d.className='sndfx';
     d.textContent=text;
     document.getElementById('playArea').appendChild(d);
-    setTimeout(function(){try{d.remove()}catch(e){}},2300);
+    setTimeout(function(){try{d.remove()}catch(e){}},2400);
   }catch(e){}
 }
 function animalSound(id,cb){
-  var v=ANIMAL_VOICE[id];
   var fired=false;
   function done(){if(fired)return;fired=true;if(cb)cb()}
-  try{AU.cue(id)}catch(e){}
-  if(v&&!muted){
-    showSndFx(v);
-    speak(v,done,true);
-    SP.timers.push(setTimeout(done,5000));
-  }else{
-    SP.timers.push(setTimeout(done,1400));
+  var files=(ANIMAL_FILES[id]||[]).slice();
+  showSndFx(ANIMAL_VOICE[id]);
+  function tryNext(){
+    if(!files.length){
+      /* مفيش تسجيل — الصوت المولّد */
+      try{AU.cue(id)}catch(e){}
+      SP.timers.push(setTimeout(done,1500));
+      return;
+    }
+    var name=files.shift();
+    var url=SND_BASE+name+'.ogg';
+    if(sndCache[url]==='bad'){tryNext();return}
+    var a=sndCache[url];
+    if(!a){a=new Audio(url);a.preload='auto';a.volume=1;sndCache[url]=a}
+    var settled=false;
+    function fail(){if(settled)return;settled=true;sndCache[url]='bad';tryNext()}
+    function ok(){if(settled)return;settled=true;sndCache[url]=a;done()}
+    stopSnd();
+    curSnd=a;
+    a.onended=function(){curSnd=null;ok()};
+    a.onerror=fail;
+    try{a.currentTime=0}catch(e){}
+    var pr=null;
+    try{pr=a.play()}catch(e){fail();return}
+    if(pr&&pr.then){pr.then(function(){}).catch(fail)}
+    else{fail()}
+    SP.timers.push(setTimeout(ok,10000));
   }
+  tryNext();
+}
+/* تحميل مسبق لأصوات الحيوانات الأساسية */
+function preloadSounds(){
+  ['cat','lion','dog','cow','elephant','duck'].forEach(function(id){
+    var f=ANIMAL_FILES[id];
+    if(f&&f.length){
+      var url=SND_BASE+f[0]+'.ogg';
+      if(!sndCache[url]){
+        try{var a=new Audio(url);a.preload='auto';sndCache[url]=a}catch(e){}
+      }
+    }
+  });
 }
 
 /* ====== أصوات المؤثرات ====== */
@@ -791,9 +827,13 @@ const AU={
   cue(id){
     if(muted)return;this.ensure();if(!this.ctx)return;
     switch(id){
-      case 'lion':this.tone(110,60,1.2,'sawtooth',.4,0,350);this.tone(55,46,1.2,'sine',.3);break;
-      case 'cat':this.tone(790,410,.18,'sine',.3);this.tone(410,930,.3,'sine',.3,.18);break;
-      case 'cow':this.tone(155,92,1,'sine',.35);this.tone(78,58,1,'sine',.2);break;
+      case 'lion':this.tone(110,60,1.2,'sawtooth',.45,0,350);this.tone(55,46,1.2,'sine',.35);break;
+      case 'cat':this.tone(790,410,.18,'sine',.4);this.tone(410,930,.3,'sine',.4,.18);break;
+      case 'cow':this.tone(155,92,1,'sine',.4);this.tone(78,58,1,'sine',.25);break;
+      case 'dog':var self=this;[0,.18,.36].forEach(function(d){self.tone(190,115,.13,'square',.35,d,600)});break;
+      case 'duck':var s2=this;[0,.15].forEach(function(d){s2.tone(520,320,.11,'square',.35,d)});break;
+      case 'elephant':this.noiseB(1.2,1300,160,.4);this.tone(65,42,1.2,'sine',.35);break;
+      case 'snake':this.noiseB(.6,2400,3600,.35,0,'highpass');break;
       default:this.tone(1046,1318,.3,'triangle',.3);this.tone(1568,1568,.25,'sine',.25,.14);
     }
   }
@@ -877,16 +917,17 @@ document.querySelectorAll('.g-pill').forEach(function(b){
     b.classList.add('on');try{AU.tap()}catch(e){}
   });
 });
-/* زرار تجربة الصوت على أول شاشة */
+/* زرار تجربة الصوت — القط الحقيقي وبعدين الأسد */
  $('btnSndTest').addEventListener('click',function(){
   try{AU.ensure()}catch(e){}
-  burstPraise('مياو! مياو!');
-  speak('مياو! مياو! مياو!',function(){
-    later(300,function(){speak('رااااااااار!')});
-  },true);
+  stopSpeak();
+  animalSound('cat',function(){
+    setTimeout(function(){animalSound('lion')},500);
+  });
 });
  $('btnStart').addEventListener('click',function(){
   try{AU.ensure()}catch(e){}
+  preloadSounds();
   S.name=($('nameInput').value.trim()||'كنوزة');
   const on=document.querySelector('.g-pill.on');
   S.gender=on?on.getAttribute('data-g'):'g';
@@ -1048,7 +1089,6 @@ function animalsFlow(ids){
     function(){pickAnimalGame(ids)},function(){soundGame(ids)},function(){missingGame(ids)},function(){feedGame(ids)}
   ];
 }
-/* درس الحيوان: صوته بيشغل فوراً + زرار اسمعي صوته */
 function teachAnimal(id){
   const an=ANIMALS[id];
   area.innerHTML='<div class="teach-stage">'
@@ -1062,9 +1102,9 @@ function teachAnimal(id){
     animalSound(id);
     btn.classList.remove('excited');void btn.offsetWidth;btn.classList.add('excited');
   }
-  /* الصوت فوراً — أول ما الحيوان يظهر */
+  /* صوت الحيوان الحقيقي فوراً */
   later(300,playSound);
-  /* وبعدين السؤال بعد ما الصوت يخلص */
+  /* وبعد الصوت: السؤال */
   later(300,function(){
     animalSound(id,function(){
       say($('loloPlay'),$('playBubble'),fillName(P().look+' يا {n}! مين ده؟ اسمع صوته!'),{},function(){
@@ -1477,7 +1517,8 @@ function openParents(){
 }
  $('pSndTest').addEventListener('click',function(){
   try{AU.ensure()}catch(e){}
-  var ids=['lion','cat','cow','dog','elephant','duck'];
+  stopSpeak();
+  var ids=['cat','lion','dog','cow','elephant','duck'];
   var k=0;
   function nx(){
     if(k>=ids.length)return;
