@@ -270,7 +270,7 @@ svg{display:block}
     <div class="t1">اللعبة مش شغالة على الجهاز ده</div>
     <div class="t2">ده معناه إن الملف اتحفظ ناقص أو بيتفتح ببرنامج مش متصفح.<br>
     انسخي الكود <b>من أول سطر لآخر سطر</b>، افتحي «المفكرة» (Notepad)، الصقيه،<br>
-    واحفظيه باسم <b>game.html</b> مع «Encoding: UTF-8»،<br>
+    واحفظيه باسم <b>kenoza12.html</b> مع «Encoding: UTF-8»،<br>
     وبعدين افتحي الملف بـ <b>Google Chrome</b>.</div>
   </div>
 
@@ -289,8 +289,8 @@ svg{display:block}
       </div>
       <button class="btn btn-pink btn-xl" id="btnStart">يلا نلعب!</button>
       <button class="btn btn-gold" id="btnSndTest" style="margin-top:14px;font-size:20px;padding:12px 30px">جربي صوت الحيوانات</button>
-      <p class="tiny-note">دوسي «جربي صوت الحيوانات» — لازم تسمعي القط والأسد <b>فوراً</b> (الأصوات جوه اللعبة — مش محتاجة إنترنت)</p>
-      <p class="ver-badge">مغامرات كنوزة</p>
+      <p class="tiny-note">دوسي «جربي صوت الحيوانات» — لازم تسمعي <b>تسجيل حقيقي</b> للقط والأسد (محتاج إنترنت)</p>
+      <p class="ver-badge">الإصدار ١٢</p>
     </div>
   </section>
 
@@ -388,9 +388,9 @@ svg{display:block}
     <div id="parentView" style="display:none;text-align:right">
       <div class="p-time" id="pTime"></div>
       <div class="p-sec"><h4>الصوت (اختاروا الأنضف)</h4><div id="pVoices"></div></div>
-      <div class="p-sec"><h4>أصوات الحيوانات (اختبريها هنا)</h4>
+      <div class="p-sec"><h4>أصوات الحيوانات الحقيقية (اختبريها هنا)</h4>
         <div class="row"><button class="btn btn-line" id="pSndTest">شغّلي أصوات الحيوانات</button></div>
-        <p class="p-note" style="margin-top:8px">الأصوات بتتولّد جوه اللعبة نفسها — شغالة من غير إنترنت.</p>
+        <p class="p-note" style="margin-top:8px">الأصوات تسجيلات حقيقية بتتحمّل من مكتبة أصوات جوجل — محتاجة إنترنت. لو صوت حيوان معين مش موجود في المكتبة، اللعبة بتشغل صوت مولّد بديل.</p>
       </div>
       <div class="p-sec"><h4>الحروف اللي اتعلمت</h4><div class="p-grid" id="pLetters"></div></div>
       <div class="p-sec"><h4>الحيوانات اللي اتعرّفت</h4><div class="p-grid" id="pAnimals"></div></div>
@@ -439,259 +439,6 @@ const pick=a=>a[Math.floor(Math.random()*a.length)];
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 const toAr=n=>String(n).replace(/\d/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.charAt(+d)});
 
-/* ============================================================
-   محرك أصوات الحيوانات المدمجة (WAV جوه الملف — بدون إنترنت)
-   ============================================================ */
-var SYNTH_RATE=22050;
-function mkbuf(dur){return new Float32Array(Math.floor(dur*SYNTH_RATE))}
-function place(buf,comp,delay,vol){
-  vol=(vol===undefined)?1:vol;
-  var off=Math.floor((delay||0)*SYNTH_RATE);
-  for(var i=0;i<comp.length;i++){var j=off+i;if(j>=0&&j<buf.length)buf[j]+=comp[i]*vol;}
-  return buf;
-}
-function toneW(freqFn,dur,type,vol){
-  vol=(vol===undefined)?1:vol;
-  var n=Math.floor(dur*SYNTH_RATE),out=new Float32Array(n),ph=0;
-  for(var i=0;i<n;i++){
-    var t=i/n,f=freqFn(t);
-    ph+=2*Math.PI*f/SYNTH_RATE;
-    var v;
-    if(type==='square')v=Math.sin(ph)>0?1:-1;
-    else if(type==='saw')v=2*((ph/(2*Math.PI))%1)-1;
-    else v=Math.sin(ph);
-    out[i]=v*vol;
-  }
-  return out;
-}
-function noiseW(dur,vol){
-  var n=Math.floor(dur*SYNTH_RATE),out=new Float32Array(n);
-  vol=vol||1;
-  for(var i=0;i<n;i++)out[i]=(Math.random()*2-1)*vol;
-  return out;
-}
-function lpBuf(x,cutoff){
-  var dt=1/SYNTH_RATE,rc=1/(2*Math.PI*cutoff),a=dt/(rc+dt),y=0;
-  var out=new Float32Array(x.length);
-  for(var i=0;i<x.length;i++){y+=a*(x[i]-y);out[i]=y;}
-  return out;
-}
-function hpBuf(x,cutoff){var l=lpBuf(x,cutoff),out=new Float32Array(x.length);
-  for(var i=0;i<x.length;i++)out[i]=x[i]-l[i];return out;}
-function envBuf(x,a,r){
-  var an=Math.max(1,Math.floor(a*SYNTH_RATE)),rn=Math.max(1,Math.floor(r*SYNTH_RATE));
-  for(var i=0;i<x.length;i++){
-    var v=1;
-    if(i<an)v=i/an;
-    if(i>x.length-rn)v=Math.min(v,(x.length-i)/rn);
-    x[i]*=v;
-  }
-  return x;
-}
-function normalizeBuf(buf){
-  var peak=0;
-  for(var i=0;i<buf.length;i++){var a=Math.abs(buf[i]);if(a>peak)peak=a;}
-  if(peak>0.001){var g=Math.min(1,0.92/peak);for(var i=0;i<buf.length;i++)buf[i]*=g;}
-  return buf;
-}
-function wavURI(buf){
-  var n=buf.length;
-  var ab=new ArrayBuffer(44+n*2),dv=new DataView(ab);
-  function ws(o,s){for(var i=0;i<s.length;i++)dv.setUint8(o+i,s.charCodeAt(i));}
-  ws(0,'RIFF');dv.setUint32(4,36+n*2,true);ws(8,'WAVE');
-  ws(12,'fmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);
-  dv.setUint32(24,SYNTH_RATE,true);dv.setUint32(28,SYNTH_RATE*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);
-  ws(36,'data');dv.setUint32(40,n*2,true);
-  for(var i=0;i<n;i++){var s=Math.max(-1,Math.min(1,buf[i]));dv.setInt16(44+i*2,s*32767,true);}
-  var bytes=new Uint8Array(ab),bin='',CH=8192;
-  for(var i=0;i<bytes.length;i+=CH){bin+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+CH,bytes.length)));}
-  return 'data:audio/wav;base64,'+btoa(bin);
-}
-
-var RECIPES={
-lion:function(){
-  var buf=mkbuf(1.9);
-  var saw=lpBuf(toneW(function(t){return 115-57*t;},1.9,'saw',.8),350);
-  var sub=toneW(function(t){return 55-10*t;},1.9,'sine',.55);
-  var nz=lpBuf(noiseW(1.9,.25),450);
-  for(var i=0;i<buf.length;i++)buf[i]=saw[i]+sub[i]+nz[i];
-  for(var i=0;i<buf.length;i++){var t=i/buf.length;buf[i]*=1+.35*Math.sin(2*Math.PI*8*t)*(1-t*.5);}
-  return {buf:envBuf(buf,.06,.5),dur:1.9};
-},
-cat:function(){
-  function mew(){
-    var f=function(t){var b=t<0.4?420+(820-420)*(t/0.4):820-(820-430)*((t-0.4)/0.6);return b*(1+.02*Math.sin(44*t));};
-    var c=toneW(f,0.55,'sine',.85);
-    var h=toneW(function(t){return f(t)*2;},0.55,'sine',.22);
-    var m=new Float32Array(c.length);
-    for(var i=0;i<c.length;i++)m[i]=c[i]+h[i];
-    return envBuf(m,.02,.1);
-  }
-  var buf=mkbuf(1.25);
-  place(buf,mew(),0,1);
-  place(buf,mew(),0.66,.85);
-  return {buf:buf,dur:1.25};
-},
-dog:function(){
-  var buf=mkbuf(0.85);
-  function bark(){
-    var b=lpBuf(toneW(function(t){return 240-110*t;},0.14,'square',.7),900);
-    var n=lpBuf(noiseW(0.1,.5),1500);
-    var c=new Float32Array(b.length);
-    for(var i=0;i<c.length;i++)c[i]=b[i]+(n[i]||0);
-    return envBuf(c,.005,.06);
-  }
-  place(buf,bark(),0,1);place(buf,bark(),0.22,1);place(buf,bark(),0.44,1);
-  return {buf:buf,dur:.85};
-},
-cow:function(){
-  var buf=mkbuf(1.3);
-  var f=function(t){var b=160-65*t;return b*(1+.04*Math.sin(2*Math.PI*5*t));};
-  var c=toneW(f,1.3,'sine',.8);
-  var h=toneW(function(t){return f(t)*2;},1.3,'sine',.25);
-  for(var i=0;i<buf.length;i++)buf[i]=c[i]+h[i];
-  return {buf:envBuf(buf,.08,.35),dur:1.3};
-},
-duck:function(){
-  var buf=mkbuf(0.8);
-  function q(){
-    var c=lpBuf(toneW(function(t){return 500-190*t;},0.1,'square',.7),2500);
-    var n=lpBuf(noiseW(.08,.3),2500);
-    var m=new Float32Array(c.length);
-    for(var i=0;i<c.length;i++)m[i]=c[i]+(n[i]||0);
-    return envBuf(m,.004,.04);
-  }
-  place(buf,q(),0,1);place(buf,q(),.18,1);place(buf,q(),.36,.95);place(buf,q(),.54,.9);
-  return {buf:buf,dur:.8};
-},
-elephant:function(){
-  var buf=mkbuf(1.5);
-  var nz=hpBuf(lpBuf(noiseW(1.5,.9),1400),250);
-  var s=toneW(function(t){return 70-25*t;},1.5,'sine',.5);
-  for(var i=0;i<buf.length;i++)buf[i]=nz[i]+s[i];
-  return {buf:envBuf(buf,.1,.4),dur:1.5};
-},
-bear:function(){
-  var buf=mkbuf(1.2);
-  var saw=lpBuf(toneW(function(t){return 100-35*t;},1.2,'saw',.8),260);
-  var sub=toneW(function(t){return 50;},1.2,'sine',.4);
-  for(var i=0;i<buf.length;i++)buf[i]=saw[i]+sub[i];
-  for(var i=0;i<buf.length;i++){var t=i/buf.length;buf[i]*=1+.3*Math.sin(2*Math.PI*7*t);}
-  return {buf:envBuf(buf,.05,.3),dur:1.2};
-},
-croc:function(){
-  var buf=mkbuf(1.1);
-  place(buf,hpBuf(noiseW(.55,.5),2200),0,1);
-  place(buf,lpBuf(toneW(function(t){return 120-40*t;},.4,'saw',.7),350),.62,1);
-  return {buf:buf,dur:1.1};
-},
-camel:function(){
-  var buf=mkbuf(0.9);
-  var hum=lpBuf(toneW(function(t){return 118-26*t;},0.9,'saw',.7),300);
-  for(var i=0;i<buf.length;i++)buf[i]=hum[i];
-  for(var i=0;i<buf.length;i++){var t=i/buf.length;buf[i]*=1+.2*Math.sin(2*Math.PI*5*t);}
-  return {buf:envBuf(buf,.06,.25),dur:.9};
-},
-sheep:function(){
-  var buf=mkbuf(1.15);
-  function bl(){
-    var f=function(t){var b=470+60*Math.sin(Math.PI*t);return b*(1+.03*Math.sin(2*Math.PI*8*t));};
-    return envBuf(lpBuf(toneW(f,0.3,'square',.55),800),.02,.08);
-  }
-  place(buf,bl(),0,1);place(buf,bl(),.4,.95);place(buf,bl(),.8,.9);
-  return {buf:buf,dur:1.15};
-},
-horse:function(){
-  var buf=mkbuf(1.0);
-  var f=function(t){var b=t<0.35?650+330*(t/0.35):980-660*((t-0.35)/0.65);return b*(1+.03*Math.sin(2*Math.PI*10*t));};
-  var c=toneW(f,1.0,'sine',.7);
-  var h=toneW(function(t){return f(t)*2;},1.0,'sine',.18);
-  var n=lpBuf(noiseW(1.0,.15),1800);
-  for(var i=0;i<buf.length;i++)buf[i]=c[i]+h[i]+n[i];
-  return {buf:envBuf(buf,.04,.3),dur:1.0};
-},
-wolf:function(){
-  var buf=mkbuf(1.5);
-  var f=function(t){var b=t<0.3?280+90*(t/0.3):(t<0.75?370:370-130*((t-0.75)/0.25));return b*(1+.02*Math.sin(2*Math.PI*6*t));};
-  var c=toneW(f,1.5,'sine',.75);
-  var h=toneW(function(t){return f(t)*2;},1.5,'sine',.15);
-  for(var i=0;i<buf.length;i++)buf[i]=c[i]+h[i];
-  return {buf:envBuf(buf,.15,.4),dur:1.5};
-},
-snake:function(){
-  var buf=hpBuf(noiseW(1.0,.6),2300);
-  for(var i=0;i<buf.length;i++){var t=i/buf.length;buf[i]*=.7+.3*Math.sin(2*Math.PI*13*t);}
-  return {buf:envBuf(buf,.05,.2),dur:1.0};
-},
-frog:function(){
-  var buf=mkbuf(0.6);
-  function crk(){return envBuf(lpBuf(toneW(function(t){return 150+90*t;},0.13,'square',.6),900),.005,.05);}
-  place(buf,crk(),0,1);place(buf,crk(),0.24,1);
-  return {buf:buf,dur:.6};
-},
-bee:function(){
-  var buf=mkbuf(1.1);
-  var bz=lpBuf(toneW(function(t){return 185;},1.1,'saw',.55),700);
-  for(var i=0;i<buf.length;i++){var t=i/buf.length;buf[i]=bz[i]*(1+.25*Math.sin(2*Math.PI*24*t));}
-  return {buf:envBuf(buf,.05,.2),dur:1.1};
-},
-fish:function(){
-  var buf=mkbuf(0.55);
-  function blub(){return envBuf(lpBuf(toneW(function(t){return 320-170*t;},0.12,'sine',.8),800),.01,.05);}
-  place(buf,blub(),0,1);place(buf,blub(),.17,.9);place(buf,blub(),.34,.85);
-  return {buf:buf,dur:.55};
-},
-whoosh:function(){
-  var buf=lpBuf(noiseW(1.1,.8),900);
-  for(var i=0;i<buf.length;i++){var t=i/buf.length;buf[i]*=Math.sin(Math.PI*Math.min(1,t*1.4));}
-  return {buf:envBuf(buf,.1,.3),dur:1.1};
-},
-hum:function(){
-  var buf=mkbuf(0.8);
-  var hum=lpBuf(toneW(function(t){return 200-30*t;},0.8,'sine',.7),500);
-  for(var i=0;i<buf.length;i++)buf[i]=hum[i];
-  return {buf:envBuf(buf,.05,.2),dur:.8};
-},
-bounce:function(){
-  var buf=mkbuf(0.4);
-  place(buf,envBuf(toneW(function(t){return 420-220*t;},0.09,'sine',.8),.005,.04),0,1);
-  place(buf,envBuf(toneW(function(t){return 380-200*t;},0.09,'sine',.7),.005,.04),.18,.9);
-  return {buf:buf,dur:.4};
-},
-sparkle:function(){
-  var buf=mkbuf(0.5);
-  place(buf,envBuf(toneW(function(t){return 1046;},.22,'sine',.5),.01,.1),0,1);
-  place(buf,envBuf(toneW(function(t){return 1568;},.25,'sine',.4),.01,.1),.16,1);
-  return {buf:buf,dur:.5};
-}
-};
-var SOUND_MAP={
-  lion:'lion',cat:'cat',dog:'dog',cow:'cow',duck:'duck',elephant:'elephant',
-  bear:'bear',croc:'croc',camel:'camel',sheep:'sheep',horse:'horse',wolf:'wolf',
-  snake:'snake',frog:'frog',bee:'bee',fish:'fish',
-  rocket:'whoosh',plane:'whoosh',giraffe:'hum',gazelle:'hum',ball:'bounce'
-};
-var sndGen={};
-function getSound(id){
-  if(sndGen[id])return sndGen[id];
-  var r;
-  try{
-    var rec=RECIPES[SOUND_MAP[id]]||RECIPES.sparkle;
-    r=rec();
-  }catch(e){r=RECIPES.sparkle();}
-  var uri=wavURI(normalizeBuf(r.buf));
-  sndGen[id]={uri:uri,dur:r.dur||1};
-  return sndGen[id];
-}
-
-const ANIMAL_VOICE={
-  lion:'راااااااار!',elephant:'بررررررررر!',cat:'مياو! مياو!',dog:'هاب هاب!',
-  duck:'كواك كواك!',cow:'ممووووو!',croc:'غرررررر!',camel:'همممممم!',
-  bear:'جررررررر!',snake:'فسسسسسس!',horse:'هييييييه!',sheep:'ماء ماء!',
-  wolf:'أوووووووو!',fish:'بلوب! بلوب!',frog:'قرق قرق!',bee:'زززززززز!',
-  rocket:'فششششوووو!',plane:'فششششوووو!',ball:'بونج! بونج!'
-};
-
 /* ====== رسومات SVG ====== */
 const ART={
 lion:'<g><circle cx="38" cy="62" r="30" fill="#E8832B"/><circle cx="162" cy="62" r="30" fill="#E8832B"/><circle cx="100" cy="104" r="80" fill="#E8832B"/><circle cx="55" cy="58" r="17" fill="#F9C061"/><circle cx="145" cy="58" r="17" fill="#F9C061"/><circle cx="100" cy="106" r="57" fill="#F9C061"/><circle cx="80" cy="97" r="9" fill="#4A3428"/><circle cx="120" cy="97" r="9" fill="#4A3428"/><circle cx="83" cy="94" r="3" fill="#fff"/><circle cx="123" cy="94" r="3" fill="#fff"/><path d="M100 116 l-9 8 q9 7 18 0 z" fill="#8C5A3C"/><path d="M100 126 q0 10 -10 10 M100 126 q0 10 10 10" stroke="#8C5A3C" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="60" cy="118" r="9" fill="#FF9E80" opacity=".55"/><circle cx="140" cy="118" r="9" fill="#FF9E80" opacity=".55"/></g>',
@@ -701,7 +448,7 @@ dog:'<g><ellipse cx="46" cy="74" rx="17" ry="28" fill="#8A5A33" transform="rotat
 duck:'<g><circle cx="100" cy="108" r="58" fill="#FFD23F"/><path d="M86 48 q-10 -16 2 -26 M100 46 q0 -20 12 -26 M114 50 q6 -18 20 -20" stroke="#E8B91F" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="79" cy="96" r="9" fill="#4A3428"/><circle cx="121" cy="96" r="9" fill="#4A3428"/><circle cx="82" cy="93" r="3" fill="#fff"/><circle cx="124" cy="93" r="3" fill="#fff"/><ellipse cx="100" cy="124" rx="21" ry="11" fill="#F79A3E"/><path d="M80 124 h40" stroke="#D97C26" stroke-width="3" stroke-linecap="round"/><circle cx="62" cy="114" r="8" fill="#FF9E80" opacity=".55"/><circle cx="138" cy="114" r="8" fill="#FF9E80" opacity=".55"/></g>',
 cow:'<g><path d="M64 44 q-22 -6 -20 -36" stroke="#C9A26B" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M136 44 q22 -6 20 -36" stroke="#C9A26B" stroke-width="11" fill="none" stroke-linecap="round"/><ellipse cx="34" cy="90" rx="15" ry="24" fill="#EDE7DB"/><ellipse cx="166" cy="90" rx="15" ry="24" fill="#EDE7DB"/><circle cx="100" cy="110" r="58" fill="#FBF7EC"/><ellipse cx="128" cy="98" rx="24" ry="21" fill="#4A3A30"/><ellipse cx="76" cy="72" rx="13" ry="11" fill="#4A3A30"/><circle cx="82" cy="104" r="9" fill="#fff"/><circle cx="82" cy="104" r="4.5" fill="#4A3428"/><circle cx="120" cy="104" r="9" fill="#fff"/><circle cx="120" cy="104" r="4.5" fill="#4A3428"/><ellipse cx="100" cy="134" rx="30" ry="17" fill="#F4B8C0"/><ellipse cx="88" cy="134" rx="5" ry="8" fill="#C96A76"/><ellipse cx="112" cy="134" rx="5" ry="8" fill="#C96A76"/><path d="M100 151 q-1 8 -10 8 M100 151 q1 8 10 8" stroke="#8C5A3C" stroke-width="3.4" fill="none" stroke-linecap="round"/></g>',
 croc:'<g><ellipse cx="100" cy="118" rx="90" ry="52" fill="#6FBF4E"/><ellipse cx="70" cy="60" r="18" fill="#6FBF4E"/><ellipse cx="130" cy="60" r="18" fill="#6FBF4E"/><circle cx="70" cy="58" r="11" fill="#fff"/><circle cx="70" cy="58" r="5.5" fill="#4A3428"/><circle cx="130" cy="58" r="11" fill="#fff"/><circle cx="130" cy="58" r="5.5" fill="#4A3428"/><ellipse cx="100" cy="136" rx="60" ry="26" fill="#8FD168"/><path d="M46 124 q54 22 108 0" stroke="#4C9C3B" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M62 128 l4 10 l4 -10 z M80 134 l4 10 l4 -10 z M100 136 l4 10 l4 -10 z M118 134 l4 10 l4 -10 z M136 128 l4 10 l4 -10 z" fill="#fff"/><circle cx="86" cy="102" r="4" fill="#4C9C3B"/><circle cx="114" cy="102" r="4" fill="#4C9C3B"/></g>',
-camel:'<g><ellipse cx="64" cy="58" rx="11" ry="18" fill="#C8914F"/><ellipse cx="136" cy="58" rx="11" ry="18" fill="#C8914F"/><ellipse cx="100" cy="110" rx="42" ry="50" fill="#DBA661"/><path d="M88 50 q-2 -16 8 -20 M100 48 q0 -16 10 -22 M112 52 q4 -14 14 -16" stroke="#C8914F" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="82" cy="98" r="8.5" fill="#4A3428"/><circle cx="118" cy="98" r="8.5" fill="#4A3428"/><circle cx="85" cy="95" r="3" fill="#fff"/><circle cx="121" cy="95" r="3" fill="#fff"/><ellipse cx="100" cy="132" rx="24" ry="17" fill="#EFC584"/><ellipse cx="92" cy="128" rx="4" ry="6" fill="#8C5A3C"/><ellipse cx="108" cy="128" rx="4" ry="6" fill="#8C5A3C"/><path d="M100 140 q-2 8 -11 8 M100 140 q2 8 11 8" stroke="#8C5A3C" stroke-width="3.2" fill="none" stroke-linecap="round"/><circle cx="66" cy="118" r="8" fill="#FF9E80" opacity=".5"/><circle cx="134" cy="118" r="8" fill="#FF9E80" opacity=".5"/></g>',
+camel:'<g><ellipse cx="64" cy="58" rx="11" ry="18" fill="#C8914F"/><ellipse cx="136" cy="58" rx="11" ry="18" fill="#C8914F"/><ellipse cx="100" cy="110" rx="42" ry="50" fill="#DBA661"/><path d="M88 50 q-2 -16 8 -20 M100 48 q0 -16 10 -22 M112 52 q4 -14 14 -16" stroke="#C8914F" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="82" cy="98" r="8.5" fill="#4A3428"/><circle cx="118" cy="98" r="8.5" fill="#4A3428"/><circle cx="85" cy="95" r="3" fill="#fff"/><circle cx="121" cy="95" r="3" fill="#fff"/><path d="M74 86 l-5 -8 M79 83 l-2 -9 M85 81 l1 -9 M115 81 l-1 -9 M121 83 l2 -9 M126 86 l5 -8" stroke="#8C5A3C" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="100" cy="132" rx="24" ry="17" fill="#EFC584"/><ellipse cx="92" cy="128" rx="4" ry="6" fill="#8C5A3C"/><ellipse cx="108" cy="128" rx="4" ry="6" fill="#8C5A3C"/><path d="M100 140 q-2 8 -11 8 M100 140 q2 8 11 8" stroke="#8C5A3C" stroke-width="3.2" fill="none" stroke-linecap="round"/><circle cx="66" cy="118" r="8" fill="#FF9E80" opacity=".5"/><circle cx="134" cy="118" r="8" fill="#FF9E80" opacity=".5"/></g>',
 bear:'<g><circle cx="52" cy="58" r="21" fill="#A9744B"/><circle cx="148" cy="58" r="21" fill="#A9744B"/><circle cx="52" cy="58" r="11" fill="#D9B08C"/><circle cx="148" cy="58" r="11" fill="#D9B08C"/><circle cx="100" cy="110" r="58" fill="#A9744B"/><circle cx="80" cy="98" r="9" fill="#4A3428"/><circle cx="120" cy="98" r="9" fill="#4A3428"/><circle cx="83" cy="95" r="3" fill="#fff"/><circle cx="123" cy="95" r="3" fill="#fff"/><ellipse cx="100" cy="132" rx="25" ry="17" fill="#D9B08C"/><ellipse cx="100" cy="124" rx="8" ry="6" fill="#4A3428"/><path d="M100 130 v7 M100 137 q-9 7 -17 2 M100 137 q9 7 17 2" stroke="#6B4A30" stroke-width="3.2" fill="none" stroke-linecap="round"/><circle cx="62" cy="122" r="9" fill="#FFB08E" opacity=".55"/><circle cx="138" cy="122" r="9" fill="#FFB08E" opacity=".55"/></g>',
 snake:'<g><path d="M50 165 q-14 -45 28 -55 q48 -11 44 -50 q-3 -26 24 -32" fill="none" stroke="#7CC24E" stroke-width="26" stroke-linecap="round"/><path d="M60 140 q30 -8 34 -38 M92 128 q26 -6 26 -34" fill="none" stroke="#8FD168" stroke-width="7" stroke-linecap="round" opacity=".85"/><circle cx="148" cy="28" r="22" fill="#7CC24E"/><circle cx="142" cy="24" r="7" fill="#fff"/><circle cx="142" cy="24" r="3.5" fill="#4A3428"/><circle cx="157" cy="31" r="7" fill="#fff"/><circle cx="157" cy="31" r="3.5" fill="#4A3428"/><path d="M170 22 l12 -7 M170 23 l13 4" stroke="#E8503F" stroke-width="3.4" stroke-linecap="round" fill="none"/><circle cx="138" cy="39" r="5" fill="#FF9E80" opacity=".6"/></g>',
 horse:'<g><path d="M62 62 l-5 -32 24 15 z" fill="#A9713F"/><path d="M138 62 l5 -32 -24 15 z" fill="#A9713F"/><circle cx="74" cy="58" r="15" fill="#8A5A33"/><circle cx="100" cy="50" r="17" fill="#8A5A33"/><circle cx="126" cy="58" r="15" fill="#8A5A33"/><circle cx="100" cy="110" r="58" fill="#C08552"/><circle cx="80" cy="100" r="9" fill="#4A3428"/><circle cx="120" cy="100" r="9" fill="#4A3428"/><circle cx="83" cy="97" r="3" fill="#fff"/><circle cx="123" cy="97" r="3" fill="#fff"/><ellipse cx="100" cy="132" rx="27" ry="19" fill="#E8CBA8"/><ellipse cx="90" cy="130" rx="4.5" ry="7" fill="#8A5A3C"/><ellipse cx="110" cy="130" rx="4.5" ry="7" fill="#8A5A3C"/><path d="M100 144 q-1 8 -9 8 M100 144 q1 8 9 8" stroke="#8C5A3C" stroke-width="3.4" fill="none" stroke-linecap="round"/><circle cx="60" cy="122" r="9" fill="#FF9E80" opacity=".5"/><circle cx="140" cy="122" r="9" fill="#FF9E80" opacity=".5"/></g>',
@@ -816,6 +563,35 @@ const STICKERS=[
 const ORD=['الأولى','التانية','التالتة','الرابعة','الخامسة','السادسة','السابعة'];
 const SESSION_MS=7*60*1000;
 
+/* ====== أصوات الحيوانات الحقيقية — تسجيلات من مكتبة أصوات جوجل ====== */
+const SND_BASE='https://actions.google.com/sounds/v1/animals/';
+const ANIMAL_FILES={
+  lion:['lion_roar','lion_growl','lion_roaring'],
+  cat:['cat_meow','cat_meow_2','cat_meow_1'],
+  dog:['dog_bark','dog_bark_1','dog_barking'],
+  duck:['duck_quack','duck_quacking'],
+  cow:['cow_moo','cow_moo_1','cow_mooing'],
+  elephant:['elephant_call','elephant_trumpet'],
+  bear:['bear_growl','bear_roar'],
+  croc:['crocodile_hiss','alligator_hiss'],
+  camel:['camel_grunt','camel_call'],
+  sheep:['sheep_bleat','goat_bleat'],
+  horse:['horse_neigh','horse_gallop'],
+  wolf:['wolf_howl','wolf_howling'],
+  snake:['snake_hiss','snake_rattle'],
+  frog:['frog_croak','frog_ribbit'],
+  bee:['bee_buzz','bee_buzzing'],
+  fish:[],giraffe:[],gazelle:[],pome:[],sun:[],moon:[],ball:[],lemon:[],banana:[],grapes:[],cloud:[],gift:[],rose:[],hand:[],rocket:[],plane:[]
+};
+/* كلمات الصوت للعرض المكتوب فوق الحيوان */
+const ANIMAL_VOICE={
+  lion:'راااااااار!',elephant:'بررررررررر!',cat:'مياو! مياو!',dog:'هاب هاب!',
+  duck:'كواك كواك!',cow:'ممووووو!',croc:'غرررررر!',camel:'همممممم!',
+  bear:'جررررررر!',snake:'فسسسسسس!',horse:'هييييييه!',sheep:'ماء ماء!',
+  wolf:'أوووووووو!',fish:'بلوب! بلوب!',frog:'قرق قرق!',bee:'زززززززز!',
+  giraffe:'همممم!',gazelle:'همممم!',rocket:'فششششوووو!',plane:'فششششوووو!',ball:'بونج! بونج!'
+};
+
 /* ====== الحالة والحفظ ====== */
 const DEF=function(){return {name:'',gender:'g',stars:0,stickers:[],letters:Array(28).fill(0),animals:{},levelsAnimals:0,levelsLetters:0,playSeconds:0,sessions:0,voiceURI:'',voiceMode:'auto'}};
 let S=DEF();
@@ -853,7 +629,7 @@ if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loa
 let googleOK=null;
 const audioCache={};
 let SP={seq:0,audio:null,timers:[]};
-let curSnd=null;
+let curSnd=null;   /* صوت الحيوان الحالي */
 function stopSnd(){try{if(curSnd){curSnd.pause()}}catch(e){}}
 function stopSpeak(){
   SP.seq++;
@@ -943,7 +719,8 @@ function speak(t,cb){
 }
 function setTalk(on){document.querySelectorAll('.lolo').forEach(function(l){l.classList.toggle('talk',on)})}
 
-/* ====== تشغيل صوت الحيوان (WAV مدمج) ====== */
+/* ====== صوت الحيوان: التسجيل الحقيقي الأول، ولو مش موجود صوت مولّد ====== */
+const sndCache={};
 function showSndFx(text){
   try{
     var old=document.getElementById('sndfx');if(old){old.remove()}
@@ -957,22 +734,50 @@ function showSndFx(text){
 function animalSound(id,cb){
   var fired=false;
   function done(){if(fired)return;fired=true;if(cb)cb()}
-  var snd=null;
-  try{snd=getSound(id)}catch(e){}
+  var files=(ANIMAL_FILES[id]||[]).slice();
   showSndFx(ANIMAL_VOICE[id]);
-  if(muted||!snd){SP.timers.push(setTimeout(done,900));return}
-  stopSnd();
-  var a=new Audio(snd.uri);
-  curSnd=a;
-  a.onended=function(){curSnd=null;done()};
-  a.onerror=function(){curSnd=null;done()};
-  var pr=null;
-  try{a.currentTime=0;pr=a.play()}catch(e){curSnd=null;done();return}
-  if(pr&&pr.then){pr.then(function(){}).catch(function(){curSnd=null;done()})}
-  SP.timers.push(setTimeout(done,Math.floor((snd.dur+0.7)*1000)));
+  function tryNext(){
+    if(!files.length){
+      /* مفيش تسجيل — الصوت المولّد */
+      try{AU.cue(id)}catch(e){}
+      SP.timers.push(setTimeout(done,1500));
+      return;
+    }
+    var name=files.shift();
+    var url=SND_BASE+name+'.ogg';
+    if(sndCache[url]==='bad'){tryNext();return}
+    var a=sndCache[url];
+    if(!a){a=new Audio(url);a.preload='auto';a.volume=1;sndCache[url]=a}
+    var settled=false;
+    function fail(){if(settled)return;settled=true;sndCache[url]='bad';tryNext()}
+    function ok(){if(settled)return;settled=true;sndCache[url]=a;done()}
+    stopSnd();
+    curSnd=a;
+    a.onended=function(){curSnd=null;ok()};
+    a.onerror=fail;
+    try{a.currentTime=0}catch(e){}
+    var pr=null;
+    try{pr=a.play()}catch(e){fail();return}
+    if(pr&&pr.then){pr.then(function(){}).catch(fail)}
+    else{fail()}
+    SP.timers.push(setTimeout(ok,10000));
+  }
+  tryNext();
+}
+/* تحميل مسبق لأصوات الحيوانات الأساسية */
+function preloadSounds(){
+  ['cat','lion','dog','cow','elephant','duck'].forEach(function(id){
+    var f=ANIMAL_FILES[id];
+    if(f&&f.length){
+      var url=SND_BASE+f[0]+'.ogg';
+      if(!sndCache[url]){
+        try{var a=new Audio(url);a.preload='auto';sndCache[url]=a}catch(e){}
+      }
+    }
+  });
 }
 
-/* ====== أصوات مؤثرات UI ====== */
+/* ====== أصوات المؤثرات ====== */
 const AU={
   ctx:null,master:null,noiseBuf:null,
   ensure(){
@@ -980,7 +785,7 @@ const AU={
       const C=window.AudioContext||window.webkitAudioContext;
       if(!C)return;
       this.ctx=new C();
-      this.master=this.ctx.createGain();this.master.gain.value=.6;this.master.connect(this.ctx.destination);
+      this.master=this.ctx.createGain();this.master.gain.value=.9;this.master.connect(this.ctx.destination);
       const len=this.ctx.sampleRate*2,buf=this.ctx.createBuffer(1,len,this.ctx.sampleRate),d=buf.getChannelData(0);
       for(var i=0;i<len;i++)d[i]=Math.random()*2-1;
       this.noiseBuf=buf;
@@ -1018,7 +823,20 @@ const AU={
   pop(){this.noiseB(.08,1800,600,.6);this.tone(300,80,.07,'square',.32)},
   eat(){this.noiseB(.16,900,300,.5,0,'lowpass')},
   whoosh(){this.noiseB(.4,300,1400,.22)},
-  chord(dl){var self=this;[523,659,784].forEach(function(f){self.tone(f,f,.5,'triangle',.25,dl||0)})}
+  chord(dl){var self=this;[523,659,784].forEach(function(f){self.tone(f,f,.5,'triangle',.25,dl||0)})},
+  cue(id){
+    if(muted)return;this.ensure();if(!this.ctx)return;
+    switch(id){
+      case 'lion':this.tone(110,60,1.2,'sawtooth',.45,0,350);this.tone(55,46,1.2,'sine',.35);break;
+      case 'cat':this.tone(790,410,.18,'sine',.4);this.tone(410,930,.3,'sine',.4,.18);break;
+      case 'cow':this.tone(155,92,1,'sine',.4);this.tone(78,58,1,'sine',.25);break;
+      case 'dog':var self=this;[0,.18,.36].forEach(function(d){self.tone(190,115,.13,'square',.35,d,600)});break;
+      case 'duck':var s2=this;[0,.15].forEach(function(d){s2.tone(520,320,.11,'square',.35,d)});break;
+      case 'elephant':this.noiseB(1.2,1300,160,.4);this.tone(65,42,1.2,'sine',.35);break;
+      case 'snake':this.noiseB(.6,2400,3600,.35,0,'highpass');break;
+      default:this.tone(1046,1318,.3,'triangle',.3);this.tone(1568,1568,.25,'sine',.25,.14);
+    }
+  }
 };
 (function(){
   function unlock(){try{AU.ensure()}catch(e){}}
@@ -1099,15 +917,17 @@ document.querySelectorAll('.g-pill').forEach(function(b){
     b.classList.add('on');try{AU.tap()}catch(e){}
   });
 });
+/* زرار تجربة الصوت — القط الحقيقي وبعدين الأسد */
  $('btnSndTest').addEventListener('click',function(){
   try{AU.ensure()}catch(e){}
   stopSpeak();
   animalSound('cat',function(){
-    setTimeout(function(){animalSound('lion')},400);
+    setTimeout(function(){animalSound('lion')},500);
   });
 });
  $('btnStart').addEventListener('click',function(){
   try{AU.ensure()}catch(e){}
+  preloadSounds();
   S.name=($('nameInput').value.trim()||'كنوزة');
   const on=document.querySelector('.g-pill.on');
   S.gender=on?on.getAttribute('data-g'):'g';
@@ -1282,7 +1102,9 @@ function teachAnimal(id){
     animalSound(id);
     btn.classList.remove('excited');void btn.offsetWidth;btn.classList.add('excited');
   }
+  /* صوت الحيوان الحقيقي فوراً */
   later(300,playSound);
+  /* وبعد الصوت: السؤال */
   later(300,function(){
     animalSound(id,function(){
       say($('loloPlay'),$('playBubble'),fillName(P().look+' يا {n}! مين ده؟ اسمع صوته!'),{},function(){
@@ -1700,7 +1522,7 @@ function openParents(){
   var k=0;
   function nx(){
     if(k>=ids.length)return;
-    animalSound(ids[k++],function(){setTimeout(nx,350)});
+    animalSound(ids[k++],function(){setTimeout(nx,400)});
   }
   nx();
 });
